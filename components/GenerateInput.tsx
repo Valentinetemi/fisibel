@@ -29,9 +29,11 @@ const ROW_PRESETS = [
 ]
 
 const PLACEHOLDERS = [
-  'Malaria patient records for Kano State with age, symptoms, test results, outcomes…',
-
-]
+  'Malaria patient records for Kano State with age, symptoms, test results, outcomes...',
+  'Maternal health tracking for Lagos clinics: prenatal visits, risk factors, and delivery outcomes...',
+  'Epidemiological data for Lassa Fever in Edo State including onset dates and contact tracing...',
+  'Community health surveys from rural Kenya: nutrition levels, vaccination status, and water access...'
+];
 
 const PII_TIPS: Record<string, string> = {
   name: 'Use Patient_ID instead of patient names to avoid PII flags.',
