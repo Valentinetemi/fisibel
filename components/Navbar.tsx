@@ -19,7 +19,7 @@ export function Navbar() {
       <div className="mx-auto w-full px-3 py-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-2 sm:gap-4">
           <div className="flex items-center gap-2 min-w-0">
-            <h1 className="text-lg sm:text-2xl lg:text-3xl font-bold truncate">AfriGen</h1>
+            <h1 className="text-lg sm:text-2xl lg:text-3xl font-bold truncate">Fisibel</h1>
             <motion.div
               className="h-2 w-2 flex-shrink-0 rounded-full bg-green-500"
               animate={{ scale: [1, 1.2, 1] }}
