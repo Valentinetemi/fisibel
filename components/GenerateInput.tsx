@@ -11,11 +11,7 @@ interface GenerateInputProps {
 }
 
 const DOMAINS = [
-  { id: 'health', label: 'Health' },
-  { id: 'finance', label: 'Finance' },
-  { id: 'agriculture', label: 'Agriculture' },
-  { id: 'education', label: 'Education' },
-  { id: 'transport', label: 'Transport' },
+  { id: 'health', label: 'Health' }
 ]
 
 const COUNTRIES = [
