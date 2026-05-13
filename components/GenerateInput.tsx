@@ -11,8 +11,11 @@ interface GenerateInputProps {
 }
 
 const DOMAINS = [
-  { id: 'health', label: 'Health' }
-]
+  { id: 'malaria', label: 'Malaria Prediction' },
+  { id: 'maternal', label: 'Maternal & Neonatal Health' },
+  { id: 'epidemic', label: 'Infectious Diseases (Ebola/Lassa)' },
+  { id: 'demographics', label: 'General Population & Demographics' }
+];
 
 const COUNTRIES = [
   'Nigeria', 'Kenya', 'Ghana', 'South Africa',
