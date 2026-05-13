@@ -37,7 +37,7 @@ export function DataTable({ data, headers }: DataTableProps) {
       transition={{ duration: 0.4, delay: 0.3 }}
     >
       <motion.div
-        className="rounded-lg border border-border overflow-hidden"
+        className="overflow-hidden rounded-2xl border border-white/55 bg-white/35 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.65)] backdrop-blur-xl"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4 }}
@@ -45,7 +45,7 @@ export function DataTable({ data, headers }: DataTableProps) {
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
-              <TableRow className="bg-muted/50">
+              <TableRow className="border-b border-white/40 bg-white/40 hover:bg-white/40">
                 {headers.map((header) => (
                   <TableHead key={header} className="font-semibold">
                     {header}
@@ -55,7 +55,10 @@ export function DataTable({ data, headers }: DataTableProps) {
             </TableHeader>
             <TableBody>
               {paginatedData.map((row, idx) => (
-                <TableRow key={idx} className="hover:bg-muted/30">
+                <TableRow
+                  key={idx}
+                  className="border-white/30 hover:bg-white/25"
+                >
                   {headers.map((header) => (
                     <TableCell key={`${idx}-${header}`} className="py-2">
                       <span className="text-sm">{String(row[header] ?? '')}</span>
@@ -75,7 +78,7 @@ export function DataTable({ data, headers }: DataTableProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.3 }}
       >
-        <p className="text-sm text-muted-foreground">
+        <p className="text-xs font-medium text-slate-500">
           Page {currentPage} of {totalPages} ({data.length} total rows)
         </p>
         <div className="flex gap-2">

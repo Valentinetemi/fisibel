@@ -11,10 +11,10 @@ interface GenerateInputProps {
 }
 
 const DOMAINS = [
-  { id: 'malaria', label: 'Malaria Prediction' },
-  { id: 'maternal', label: 'Maternal & Neonatal Health' },
-  { id: 'epidemic', label: 'Infectious Diseases (Ebola/Lassa)' }
-];
+  { id: 'malaria', label: 'Malaria' },
+  { id: 'maternal', label: 'Maternal' },
+  { id: 'epidemic', label: 'Ebola / Lassa' },
+]
 
 const COUNTRIES = [
   'Nigeria', 'Kenya', 'Ghana', 'South Africa',
@@ -22,7 +22,7 @@ const COUNTRIES = [
 ]
 
 const ROW_PRESETS = [
- { label: '500', value: 500 },
+  { label: '500', value: 500 },
   { label: '1,000', value: 1000 },
   { label: '2,000', value: 2000 },
 ]
@@ -31,8 +31,8 @@ const PLACEHOLDERS = [
   'Malaria patient records for Kano State with age, symptoms, test results, outcomes...',
   'Maternal health tracking for Lagos clinics: prenatal visits, risk factors, and delivery outcomes...',
   'Epidemiological data for Lassa Fever in Edo State including onset dates and contact tracing...',
-  'Community health surveys from rural Kenya: nutrition levels, vaccination status, and water access...'
-];
+  'Community health surveys from rural Kenya: nutrition levels, vaccination status, and water access...',
+]
 
 const PII_TIPS: Record<string, string> = {
   name: 'Use Patient_ID instead of patient names to avoid PII flags.',
@@ -66,21 +66,31 @@ function useTypewriter(strings: string[], speed = 32, pause = 2600) {
   useEffect(() => {
     const current = strings[idx]
     if (char < current.length) {
-      const t = setTimeout(() => { setDisplay(current.slice(0, char + 1)); setChar(c => c + 1) }, speed)
+      const t = setTimeout(() => {
+        setDisplay(current.slice(0, char + 1))
+        setChar((c) => c + 1)
+      }, speed)
       return () => clearTimeout(t)
     }
-    const t = setTimeout(() => { setIdx(i => (i + 1) % strings.length); setChar(0); setDisplay('') }, pause)
+    const t = setTimeout(() => {
+      setIdx((i) => (i + 1) % strings.length)
+      setChar(0)
+      setDisplay('')
+    }, pause)
     return () => clearTimeout(t)
-  }, [char, idx])
+  }, [char, idx, strings, pause, speed])
 
   return display
 }
 
-export function GenerateInput({ 
-  onSubmit, 
+const glassField =
+  'rounded-xl border border-white/55 bg-white/35 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.65)] backdrop-blur-xl transition-[box-shadow,border-color] duration-200'
+
+export function GenerateInput({
+  onSubmit,
   isLoading = false,
   initialPrompt = '',
-  onPromptChange
+  onPromptChange,
 }: GenerateInputProps) {
   const [prompt, setPrompt] = useState(initialPrompt)
 
@@ -125,77 +135,85 @@ export function GenerateInput({
   }, [prompt])
 
   return (
-    <div className="w-full flex flex-col gap-6">
-
-      {/* ── Domain ── */}
-      <div className="flex flex-col gap-2.5">
-        <span className="text-[11px] font-medium text-gray-400 uppercase tracking-widest">Domain</span>
+    <div className="flex w-full flex-col gap-7">
+      <div className="flex flex-col gap-2">
+        <div className="flex items-baseline justify-between gap-2">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">
+            Health specialization
+          </span>
+          <span className="hidden text-[9px] font-medium uppercase tracking-wider text-slate-400 sm:inline">
+            Optional
+          </span>
+        </div>
         <div className="flex flex-wrap gap-1.5">
-          {DOMAINS.map(d => (
-            <button
-              key={d.id}
-              type="button"
-              onClick={() => setDomain(prev => prev === d.id ? '' : d.id)}
-              className={`px-3 py-1.5 rounded-md text-xs font-medium border transition-all duration-150 ${
-                domain === d.id
-                  ? 'bg-green-600 border-green-600 text-white'
-                  : 'bg-white border-gray-200 text-gray-500 hover:border-green-500 hover:text-green-700'
-              }`}
-            >
-              {d.label}
-            </button>
-          ))}
+          {DOMAINS.map((d) => {
+            const active = domain === d.id
+            return (
+              <button
+                key={d.id}
+                type="button"
+                onClick={() => setDomain((prev) => (prev === d.id ? '' : d.id))}
+                className={`rounded-md border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide shadow-[inset_0_1px_0_0_rgba(255,255,255,0.5)] backdrop-blur-md transition-all duration-200 active:scale-[0.97] ${
+                  active
+                    ? 'border-emerald-400/45 bg-emerald-500/20 text-emerald-950 ring-1 ring-emerald-500/20'
+                    : 'border-white/50 bg-white/30 text-slate-600 hover:border-white/70 hover:bg-white/45'
+                }`}
+              >
+                {d.label}
+              </button>
+            )
+          })}
         </div>
       </div>
 
-      {/* ── Textarea ── */}
-      <div className="flex flex-col gap-1.5">
-        <span className="text-[11px] font-medium text-gray-400 uppercase tracking-widest">
-          Describe your dataset
+      <div className="flex flex-col gap-2">
+        <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">
+          Clinical specification
         </span>
-        <div className={`relative rounded-lg border bg-white transition-colors duration-200 ${
-          focused ? 'border-green-500' : 'border-gray-200'
-        }`}>
+        <div
+          className={`relative overflow-hidden ${glassField} ${
+            focused
+              ? 'border-emerald-300/60 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.75),0_0_0_3px_rgba(16,185,129,0.12)]'
+              : ''
+          }`}
+        >
           <textarea
             ref={ref}
             value={prompt}
-            onChange={e => handlePromptChange(e.target.value)}
+            onChange={(e) => handlePromptChange(e.target.value)}
             onKeyDown={onKey}
             onFocus={() => setFocused(true)}
             onBlur={() => setFocused(false)}
             disabled={isLoading}
-            placeholder={placeholder || 'Describe what you want to generate…'}
+            placeholder={placeholder || 'Describe cohort, variables, and outcomes…'}
             rows={3}
-            className="w-full resize-none bg-transparent px-4 pt-3.5 pb-11 text-sm text-gray-800 placeholder:text-gray-300 focus:outline-none leading-relaxed"
-            style={{ minHeight: 108 }}
+            className="min-h-[112px] w-full resize-none bg-transparent px-3.5 pb-11 pt-3 text-sm leading-relaxed text-slate-800 placeholder:text-sm placeholder:leading-relaxed placeholder:text-slate-500/85 focus:outline-none"
           />
-          {/* Toolbar */}
-          <div className="absolute inset-x-0 bottom-0 flex items-center justify-between px-3 py-2 border-t border-gray-100">
-            <span className="text-[10px] text-gray-300 tabular-nums font-mono">
-              {prompt.length > 0 ? `${prompt.length} chars · ⌘↵` : '⌘↵ to submit'}
+          <div className="absolute inset-x-0 bottom-0 flex items-center justify-between border-t border-white/40 bg-white/25 px-2.5 py-2 backdrop-blur-md">
+            <span className="font-mono text-[9px] tabular-nums tracking-wide text-slate-500">
+              {prompt.length > 0 ? `${prompt.length} chars · ⌘↵` : '⌘↵ submit'}
             </span>
             <button
               type="button"
               onClick={submit}
               disabled={!prompt.trim() || isLoading}
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-green-600 hover:bg-green-700 disabled:opacity-25 disabled:cursor-not-allowed text-white text-[11px] font-medium transition-colors"
+              className="flex items-center gap-1 rounded-md border border-emerald-500/25 bg-emerald-600/90 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-white shadow-sm backdrop-blur-sm transition-colors hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-30"
             >
               {isLoading ? (
                 <>
-                  <svg className="w-2.5 h-2.5 animate-spin" fill="none" viewBox="0 0 24 24">
+                  <svg className="h-2.5 w-2.5 animate-spin" fill="none" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
                   </svg>
-                  Generating
+                  Run
                 </>
               ) : (
-                <>Generate ↗</>
+                <>Run ↗</>
               )}
             </button>
           </div>
         </div>
 
-        {/* PII warning — quiet, inline, no box */}
         <AnimatePresence mode="wait">
           {warning && (
             <motion.p
@@ -204,29 +222,27 @@ export function GenerateInput({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.15 }}
-              className="text-[11px] text-amber-500 pl-1 flex items-center gap-1.5"
+              className="flex items-center gap-1.5 pl-0.5 text-[10px] text-amber-700/90"
             >
-              <span className="text-amber-400">↳</span> {warning}
+              <span className="font-mono text-amber-600/90">!</span> {warning}
             </motion.p>
           )}
         </AnimatePresence>
       </div>
 
-      {/* ── Rows + Country ── */}
       <div className="grid grid-cols-2 gap-5">
-        {/* Rows */}
-        <div className="flex flex-col gap-2.5">
-          <span className="text-[11px] font-medium text-gray-400 uppercase tracking-widest">Rows</span>
+        <div className="flex flex-col gap-2">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">Volume</span>
           <div className="flex gap-1">
-            {ROW_PRESETS.map(p => (
+            {ROW_PRESETS.map((p) => (
               <button
                 key={p.value}
                 type="button"
                 onClick={() => setRows(p.value)}
-                className={`flex-1 py-1.5 rounded-md text-xs font-medium border transition-all ${
+                className={`flex-1 rounded-lg border py-1.5 text-[11px] font-semibold tabular-nums tracking-tight backdrop-blur-md transition-all duration-200 ${
                   rows === p.value
-                    ? 'bg-green-600 border-green-600 text-white'
-                    : 'bg-white border-gray-200 text-gray-500 hover:border-green-500 hover:text-green-700'
+                    ? 'border-emerald-400/40 bg-emerald-500/15 text-emerald-950 ring-1 ring-emerald-500/15'
+                    : 'border-white/50 bg-white/30 text-slate-600 hover:bg-white/45'
                 }`}
               >
                 {p.label}
@@ -238,50 +254,49 @@ export function GenerateInput({
             min={10}
             max={2000}
             value={rows}
-            onChange={e => setRows(Math.min(2000, Math.max(10, Number(e.target.value))))}
-            className="w-full px-3 py-1.5 rounded-md border border-gray-200 text-xs text-gray-700 text-center focus:outline-none focus:border-green-500 bg-white tabular-nums transition-colors"
+            aria-label="Number of rows to generate"
+            onChange={(e) =>
+              setRows(Math.min(2000, Math.max(10, Number(e.target.value))))
+            }
+            className={`${glassField} w-full px-2.5 py-2 text-center text-xs font-medium tabular-nums text-slate-800 focus:border-emerald-300/50 focus:outline-none focus:ring-2 focus:ring-emerald-500/15`}
           />
-          <p className="text-[10px] text-gray-400">Max 2,000 for best quality</p>
+          <p className="text-[9px] font-medium uppercase tracking-wider text-slate-400">Max 2k rows · latency SLA</p>
         </div>
 
-        {/* Country */}
-        <div className="flex flex-col gap-2.5">
-          <span className="text-[11px] font-medium text-gray-400 uppercase tracking-widest">Country</span>
+        <div className="flex flex-col gap-2">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">Region</span>
           <select
             value={country}
-            onChange={e => setCountry(e.target.value)}
-            className="w-full px-3 py-2 rounded-md border border-gray-200 text-xs text-gray-700 focus:outline-none focus:border-green-500 bg-white cursor-pointer transition-colors"
+            aria-label="Country for regional grounding"
+            onChange={(e) => setCountry(e.target.value)}
+            className={`${glassField} w-full cursor-pointer px-2.5 py-2 text-xs font-medium text-slate-800 focus:border-emerald-300/50 focus:outline-none focus:ring-2 focus:ring-emerald-500/15`}
           >
-            {COUNTRIES.map(c => <option key={c}>{c}</option>)}
+            {COUNTRIES.map((c) => (
+              <option key={c}>{c}</option>
+            ))}
           </select>
-          <p className="text-[10px] text-gray-400">Grounds names, LGAs & currency</p>
+          <p className="text-[9px] font-medium uppercase tracking-wider text-slate-400">Geo + currency grounding</p>
         </div>
       </div>
 
-      {/* ── Quality checks — no box, just dots + labels ── */}
-      <div className="grid grid-cols-2 gap-x-4 gap-y-2 pt-2 border-t border-gray-100">
-        {checks.map((c, i) => (
-          <motion.div
-            key={c.label}
-            className="flex items-center gap-2"
-            animate={{ opacity: 1 }}
-          >
+      <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 border-t border-white/35 pt-4">
+        {checks.map((c) => (
+          <motion.div key={c.label} className="flex items-center gap-1.5" animate={{ opacity: 1 }}>
             <motion.div
-              className="w-1.5 h-1.5 rounded-full shrink-0"
-              animate={{ backgroundColor: c.ok ? '#22c55e' : '#d1d5db' }}
-              transition={{ duration: 0.3 }}
+              className="h-1 w-1 shrink-0 rounded-full"
+              animate={{ backgroundColor: c.ok ? '#059669' : '#94a3b8' }}
+              transition={{ duration: 0.25 }}
             />
-            <span className="text-[11px] text-gray-400">{c.label}</span>
+            <span className="text-[10px] font-medium text-slate-500">{c.label}</span>
           </motion.div>
         ))}
       </div>
 
-      {/* ── Primary CTA ── */}
       <button
         type="button"
         onClick={submit}
         disabled={!prompt.trim() || isLoading}
-        className="w-full py-3 rounded-lg bg-green-600 hover:bg-green-700 active:bg-green-800 disabled:opacity-25 disabled:cursor-not-allowed text-white text-sm font-medium transition-colors"
+        className="w-full rounded-xl border border-emerald-400/30 bg-gradient-to-b from-emerald-500 to-emerald-600 py-3 text-sm font-semibold tracking-tight text-white shadow-[0_4px_14px_-4px_rgba(5,150,105,0.45),inset_0_1px_0_0_rgba(255,255,255,0.2)] backdrop-blur-sm transition-all hover:from-emerald-500 hover:to-emerald-600/95 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-25 disabled:active:scale-100"
       >
         <AnimatePresence mode="wait">
           {isLoading ? (
@@ -292,11 +307,11 @@ export function GenerateInput({
               exit={{ opacity: 0 }}
               className="flex items-center justify-center gap-2"
             >
-              <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+              <svg className="h-4 w-4 animate-spin" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
               </svg>
-              Generating…
+              Provisioning stream…
             </motion.span>
           ) : (
             <motion.span
@@ -310,7 +325,6 @@ export function GenerateInput({
           )}
         </AnimatePresence>
       </button>
-
     </div>
   )
 }

@@ -122,8 +122,15 @@ function buildSystemPrompt(parsed: ParsedPrompt, referenceData?: string | null):
 
   return `You are a specialized synthetic dataset generator for African AI research.
 
-## STRICT OUTPUT RULES
-- Return ONLY valid CSV. First row is headers. No explanations, no markdown, no backticks, no commentary.
+## STRICT OUTPUT FORMAT (order matters)
+1. First output a short reasoning block wrapped EXACTLY in these tags (2–6 sentences, plain text, no markdown inside the block):
+[REASONING]
+Your brief plan: columns chosen, distributions, geographic grounding, and quality checks you will apply.
+[/REASONING]
+2. Immediately after the closing tag, output ONLY valid CSV: first row is headers, then data rows. No text before or after the CSV. No markdown fences, no commentary.
+
+## CSV RULES
+- Return ONLY valid CSV after the closing [/REASONING] tag. First row is headers.
 - Every row must be complete — no empty fields unless the column is explicitly nullable.
 - Escape commas inside values by wrapping in double quotes.
 - All categorical columns must use EXACTLY the same spelling/casing throughout (e.g. always "Male", never "male" or "M").

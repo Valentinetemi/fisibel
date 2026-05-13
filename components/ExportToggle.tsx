@@ -54,14 +54,16 @@ export function ExportToggle({ data, headers }: ExportToggleProps) {
 
   return (
     <motion.div
-      className="flex flex-col gap-4 rounded-lg border border-border bg-card p-4"
+      className="flex flex-col gap-4 rounded-2xl border border-white/55 bg-white/40 p-5 shadow-[0_8px_32px_-12px_rgba(15,23,42,0.1),inset_0_1px_0_0_rgba(255,255,255,0.65)] backdrop-blur-2xl"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2, duration: 0.4 }}
     >
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div className="space-y-1">
-          <p className="text-sm font-medium">Export Format</p>
+        <div className="space-y-2">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+            Export format
+          </p>
           <ToggleGroup type="single" value={format} onValueChange={(v) => setFormat(v as any)}>
             <ToggleGroupItem value="csv">CSV</ToggleGroupItem>
             <ToggleGroupItem value="json">JSON</ToggleGroupItem>
@@ -74,7 +76,7 @@ export function ExportToggle({ data, headers }: ExportToggleProps) {
               variant="outline"
               size="sm"
               onClick={handleCopy}
-              className="flex items-center gap-2"
+              className="flex items-center gap-2 border-white/55 bg-white/35 backdrop-blur-sm hover:bg-white/50"
             >
               <Copy className="h-4 w-4" />
               {copied ? 'Copied!' : 'Copy'}
@@ -90,7 +92,7 @@ export function ExportToggle({ data, headers }: ExportToggleProps) {
             <Button
               size="sm"
               onClick={handleDownload}
-              className="flex items-center gap-2 bg-green-600 hover:bg-green-700"
+              className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700"
             >
               <Download className="h-4 w-4" />
               Download
