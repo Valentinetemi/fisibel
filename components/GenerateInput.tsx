@@ -18,7 +18,7 @@ const DOMAINS = [
 
 const COUNTRIES = [
   'Nigeria', 'Kenya', 'Ghana', 'South Africa',
-  'Ethiopia', 'Tanzania', 'Rwanda', 'Uganda',
+  'Ethiopia', 'Tanzania', 'Rwanda',
 ]
 
 const ROW_PRESETS = [
