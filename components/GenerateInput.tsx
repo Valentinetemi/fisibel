@@ -165,6 +165,19 @@ export function GenerateInput({
           })}
         </div>
       </div>
+      {domain && (
+  <div className="mt-2 flex items-center gap-2 animate-in fade-in slide-in-from-top-1 duration-300">
+    <div className="relative flex h-2 w-2">
+      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+    </div>
+    <span className="text-[10px] font-medium text-emerald-700/80 uppercase tracking-wider">
+      {domain === 'malaria' && "Grounding: WHO Malaria Report 2025 (Sub-Saharan African Cohort)"}
+      {domain === 'maternal' && "Grounding: World Bank Maternal Health Data (Nigeria/Ghana Focus)"}
+      {domain === 'epidemic' && "Grounding: CDC Africa Infectious Disease Surveillance Patterns"}
+    </span>
+  </div>
+)}
 
       <div className="flex flex-col gap-2">
         <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">
