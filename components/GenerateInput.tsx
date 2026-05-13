@@ -29,7 +29,7 @@ const PLACEHOLDERS = [
   'Malaria patient records for Kano State with age, symptoms, test results, outcomes…',
   'Mobile money transactions for Lagos with sender, receiver, amount, channel…',
   'Crop yield records for Ogun State with type, rainfall, temperature, harvest…',
-  'Student exam records for Nairobi with subject, grade, school type, county…',
+
 ]
 
 const PII_TIPS: Record<string, string> = {
