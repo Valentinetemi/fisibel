@@ -13,8 +13,7 @@ interface GenerateInputProps {
 const DOMAINS = [
   { id: 'malaria', label: 'Malaria Prediction' },
   { id: 'maternal', label: 'Maternal & Neonatal Health' },
-  { id: 'epidemic', label: 'Infectious Diseases (Ebola/Lassa)' },
-  { id: 'demographics', label: 'General Population & Demographics' }
+  { id: 'epidemic', label: 'Infectious Diseases (Ebola/Lassa)' }
 ];
 
 const COUNTRIES = [

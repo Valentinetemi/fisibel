@@ -35,12 +35,6 @@ function getCountryFlag(country: string): string {
 function getDomainColor(domain: string): string {
   const colorMap: Record<string, string> = {
     Healthcare: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400',
-    FinTech: 'bg-blue-500/10 text-blue-700 dark:text-blue-400',
-    Agriculture: 'bg-amber-500/10 text-amber-700 dark:text-amber-400',
-    Education: 'bg-purple-500/10 text-purple-700 dark:text-purple-400',
-    Energy: 'bg-yellow-500/10 text-yellow-700 dark:text-yellow-400',
-    Labor: 'bg-pink-500/10 text-pink-700 dark:text-pink-400',
-    General: 'bg-gray-500/10 text-gray-700 dark:text-gray-400',
   }
   return colorMap[domain] || colorMap['General']
 }
