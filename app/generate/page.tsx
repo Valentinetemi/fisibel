@@ -18,7 +18,7 @@ import {
   loadPersistedGenerateResult,
   GENERATE_SESSION,
 } from "@/lib/utils/generate-session";
-import { postProcessCSV } from "@/lib/services/gemini";
+import { buildGeneratedDatasetBasename } from "@/lib/utils/dataset-export-name";
 import { ChevronRight, Upload, CheckCircle, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "@/components/ui/toast";
@@ -34,6 +34,7 @@ export default function GeneratePage() {
   const [hasCompleted, setHasCompleted] = useState(false);
   const [streamKey, setStreamKey] = useState(0);
   const [bootInsight, setBootInsight] = useState("");
+  const [downloadBasename, setDownloadBasename] = useState("");
   const hasStarted =
     isStreaming ||
     streamContent.length > 0 ||
@@ -59,11 +60,13 @@ export default function GeneratePage() {
     const savedContent = sessionStorage.getItem(GENERATE_SESSION.stream);
     if (savedContent) setStreamContent(savedContent);
 
-    const { rows, headers: hdrs } = loadPersistedGenerateResult();
+    const { rows, headers: hdrs, downloadBasename: savedBase } =
+      loadPersistedGenerateResult();
     if (rows && hdrs) {
       setGeneratedData(rows);
       setHeaders(hdrs);
       setHasCompleted(true);
+      if (savedBase) setDownloadBasename(savedBase);
     }
   }, []);
 
@@ -85,6 +88,7 @@ export default function GeneratePage() {
     setStreamContent("");
     setGeneratedData([]);
     setHeaders([]);
+    setDownloadBasename("");
     setHasCompleted(false);
     setIsStreaming(true);
     setStreamKey((k) => k + 1);
@@ -158,7 +162,9 @@ export default function GeneratePage() {
       setGeneratedData(jsonData);
 
       if (jsonData.length > 0) {
-        persistGenerateResult(jsonData, parsedHeaders);
+        const exportBase = buildGeneratedDatasetBasename(prompt);
+        setDownloadBasename(exportBase);
+        persistGenerateResult(jsonData, parsedHeaders, exportBase);
         try {
           await fetch("/api/catalog", {
             method: "POST",
@@ -371,7 +377,14 @@ export default function GeneratePage() {
                       transition={{ duration: 0.4 }}
                       className="flex flex-col gap-6"
                     >
-                      <ExportToggle data={generatedData} headers={headers} />
+                      <ExportToggle
+                        data={generatedData}
+                        headers={headers}
+                        fileBasename={
+                          downloadBasename ||
+                          buildGeneratedDatasetBasename(userPrompt)
+                        }
+                      />
                       <DataTable data={generatedData} headers={headers} />
 
                       <div className="rounded-2xl border border-white/55 bg-white/40 p-6 shadow-[0_8px_32px_-12px_rgba(15,23,42,0.1),inset_0_1px_0_0_rgba(255,255,255,0.65)] backdrop-blur-2xl">

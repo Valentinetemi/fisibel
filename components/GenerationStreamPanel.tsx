@@ -100,7 +100,7 @@ export function GenerationStreamPanel({
       <div className="flex min-h-0 flex-[0.7] flex-col bg-white/20 backdrop-blur-xl">
         <div className="flex shrink-0 items-center justify-between border-b border-white/35 px-5 py-2.5">
           <div className="flex items-center gap-2">
-            <span className="font-mono text-[9px] font-medium uppercase tracking-[0.18em] text-slate-500">
+            <span className="font-mono text-[12px] font-medium uppercase tracking-[0.18em] text-slate-500">
               Live Dataset
             </span>
             {isStreaming && (

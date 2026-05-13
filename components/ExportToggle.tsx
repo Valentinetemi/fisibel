@@ -6,15 +6,24 @@ import { Button } from '@/components/ui/button'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { Copy, Download } from 'lucide-react'
 import { arrayToCSV, arrayToJSON, downloadFile } from '@/lib/utils/csv-export'
+import { sanitizeFileBasename } from '@/lib/utils/dataset-export-name'
 
 interface ExportToggleProps {
   data: any[]
   headers: string[]
+  /** Base filename without extension, e.g. "Healthcare-Nigeria-synthetic-dataset" */
+  fileBasename?: string
 }
 
-export function ExportToggle({ data, headers }: ExportToggleProps) {
+export function ExportToggle({ data, headers, fileBasename }: ExportToggleProps) {
   const [format, setFormat] = useState<'csv' | 'json'>('csv')
   const [copied, setCopied] = useState(false)
+
+  const safeBase = sanitizeFileBasename(
+    fileBasename?.trim() && fileBasename.trim().length > 0
+      ? fileBasename.trim()
+      : 'fisibel-dataset'
+  )
 
   const handleDownload = () => {
     let content: string
@@ -23,11 +32,11 @@ export function ExportToggle({ data, headers }: ExportToggleProps) {
 
     if (format === 'csv') {
       content = arrayToCSV(data, headers)
-      filename = `generated-data-${Date.now()}.csv`
+      filename = `${safeBase}.csv`
       mimeType = 'text/csv'
     } else {
       content = arrayToJSON(data)
-      filename = `generated-data-${Date.now()}.json`
+      filename = `${safeBase}.json`
       mimeType = 'application/json'
     }
 
