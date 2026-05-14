@@ -245,9 +245,9 @@ export default function GeneratePage() {
     "rounded-2xl border border-white/60 bg-white/70 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.05)] backdrop-blur-md sm:p-8";
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[radial-gradient(circle_at_88%_0%,#F0FDF4_0%,#F8FAFC_48%,#F2F4F7_100%)]">
+    <div className="relative min-h-screen overflow-hidden bg-[radial-gradient(circle_at_88%_0%,#F4D98A_0%,#F7F1DE_38%,#F8F5EC_72%,#F3EBD4_100%)]">
       <div
-        className="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_90%_60%_at_100%_0%,rgba(16,185,129,0.12),transparent_48%),radial-gradient(ellipse_80%_55%_at_0%_100%,rgba(148,163,184,0.08),transparent_52%)]"
+        className="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_90%_60%_at_100%_0%,rgba(212,175,55,0.16),transparent_48%),radial-gradient(ellipse_80%_55%_at_0%_100%,rgba(16,185,129,0.07),transparent_52%)]"
         aria-hidden
       />
       <div
