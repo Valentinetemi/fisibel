@@ -291,10 +291,10 @@ Columns: ${analysis.columns.map(c => `${c.name} (${c.dataType}, ${c.missingPerce
         </div>
 
         {/* Overview stats */}
-        <div className="lg:col-span-3 rounded-2xl border border-white/[0.08] bg-white/[0.04] p-6 flex flex-col justify-between gap-4 backdrop-blur-md">
+        <div className="lg:col-span-3 rounded-2xl border border-white/[0.08] bg-white/[0.08] p-6 flex flex-col justify-between gap-4 backdrop-blur-md">
           <div>
             <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1">Overview</h3>
-            <p className="text-sm text-gray-600 leading-relaxed">{analysis.summary}</p>
+            <p className="text-sm text-gray-100 leading-relaxed">{analysis.summary}</p>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {[
