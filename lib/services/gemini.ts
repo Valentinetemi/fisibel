@@ -222,6 +222,7 @@ export function postProcessCSV(rawCSV: string): string {
     const trimmed = values.slice(0, headers.length)
     const normalized = trimmed.map((val, i) => {
       if (!val) return ''
+      if (val.includes(',') )return val //this is to skip the inrelevant comma
       const cats = columnCategories.get(i)
       if (cats?.has(val.toLowerCase())) return cats.get(val.toLowerCase())!
       return val
