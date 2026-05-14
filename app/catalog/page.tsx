@@ -133,14 +133,14 @@ export default function CatalogPage() {
           {/* Hero Section */}
           <motion.div variants={itemVariants} className="space-y-2">
             <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold">African Data Infrastructure</h1>
-            <p className="text-sm sm:text-base lg:text-lg text-muted-foreground max-w-2xl">
+            <p className="text-sm sm:text-base lg:text-lg text-[#e2e8f0] max-w-2xl">
               Browse and download pre-generated synthetic African datasets. All datasets include realistic country-specific data, demographics, and metrics.
             </p>
           </motion.div>
 
           {/* Datasets Grid */}
           <motion.div variants={itemVariants}>
-            <h3 className="text-xs sm:text-sm font-medium mb-3 sm:mb-4 text-muted-foreground uppercase tracking-wider">
+            <h3 className="text-xs sm:text-sm font-medium mb-3 sm:mb-4 text-[#94a3b8] uppercase tracking-wider">
               Available Datasets ({datasets.length})
             </h3>
 
@@ -155,12 +155,12 @@ export default function CatalogPage() {
                 ))}
               </div>
             ) : error ? (
-              <div className="rounded-lg border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-950/50 p-4 text-center">
+              <div className="rounded-lg border border-red-900 dark:border-red-900 bg-red-50 dark:bg-red-950/50 p-4 text-center">
                 <p className="text-sm text-red-900 dark:text-red-100">{error}</p>
-              </div>
+              </div>  
             ) : datasets.length === 0 ? (
-              <div className="rounded-lg border border-dashed border-border bg-card/50 p-12 text-center">
-                <p className="text-muted-foreground">
+              <div className="rounded-lg border border-dashed border-border bg-card/20 p-12 text-center">
+                <p className="text-[#cbd5e1]">
                   No datasets available yet. Generate one on the Generate page.
                 </p>
               </div>
@@ -185,9 +185,9 @@ export default function CatalogPage() {
           </motion.div>
 
           {/* Info Section */}
-          <motion.div variants={itemVariants} className="rounded-lg border border-border bg-card p-4 sm:p-6">
-            <h3 className="text-base sm:text-lg font-semibold mb-3">About These Datasets</h3>
-            <ul className="space-y-2 text-xs sm:text-sm text-muted-foreground">
+          <motion.div variants={itemVariants} className="rounded-lg border border-border bg-card/90 p-4 sm:p-6">
+            <h3 className="text-base sm:text-lg font-semibold mb-3 text-[#1e3a5f]">About These Datasets</h3>
+            <ul className="space-y-2 text-xs sm:text-sm text-[#1e2945]">
               <li className="flex gap-2">
                 <span className="text-primary">→</span>
                 <span>
@@ -198,8 +198,7 @@ export default function CatalogPage() {
               <li className="flex gap-2">
                 <span className="text-primary">→</span>
                 <span>
-                  <strong>Domain-Specific:</strong> Healthcare, FinTech, Agriculture,
-                  Education, Energy, and Labor datasets
+                  <strong>Domain-Specific:</strong> Healthcare
                 </span>
               </li>
               <li className="flex gap-2">

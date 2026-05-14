@@ -110,20 +110,20 @@ export function FileUpload({ onFileSelect, isLoading = false }: FileUploadProps)
                 animate={{ opacity: 1, scale: 1 }}
               >
                 <FileText className="mx-auto mb-3 h-8 w-8 text-[#60a5fa] dark:text-[#60a5fa]" />
-                <p className="text-sm font-semibold text-gray-900 dark:text-white">
+                <p className="text-sm font-semibold text-[#f1f5f9] dark:text-white">
                   {fileName}
                 </p>
-                <p className="mt-1 text-xs text-muted-foreground">
+                <p className="mt-1 text-xs text-[#94a3b8]">
                   Ready to analyze
                 </p>
               </motion.div>
             ) : (
               <motion.div>
-                <Upload className="mx-auto mb-3 h-10 w-10 text-gray-400 dark:text-gray-500" />
-                <p className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white">
+                <Upload className="mx-auto mb-3 h-10 w-10 text-[#94a3b8] dark:text-[#94a3b8]" />
+                <p className="text-base sm:text-lg font-semibold text-[#f1f5f9] dark:text-white">
                   Drop your CSV, JSON, Excel or Parquet file here
                 </p>
-                <p className="mt-2 text-xs sm:text-sm text-muted-foreground">
+                <p className="mt-2 text-xs sm:text-sm text-[#94a3b8]">
                   or click to browse (Max 50MB)
                 </p>
               </motion.div>

@@ -82,8 +82,8 @@ export default function DataQualityPage() {
                     <ShieldCheck className="w-3.5 h-3.5 text-[#60a5fa]" />
                     <span className="text-xs font-semibold text-slate-200">Training Readiness Analysis</span>
                   </div>
-                  <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">Data Quality</h1>
-                  <p className="text-sm text-gray-500 mt-1.5 max-w-lg">
+                  <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">Data Quality</h1>
+                  <p className="text-sm text-[#e2e8f0] mt-1.5 max-w-lg">
                     Upload your dataset and get an instant quality report - PII detection, completeness scores, and an AI-powered model readiness verdict.
                   </p>
                 </div>
@@ -125,7 +125,7 @@ export default function DataQualityPage() {
                             animate={{ scale: [1, 1.4, 1], opacity: [1, 0.5, 1] }}
                             transition={{ duration: 1.2, repeat: Infinity }}
                           />
-                          <span className="text-xs text-gray-500 font-medium">Analyzing your dataset…</span>
+                          <span className="text-xs text-[#cbd5e1] font-medium">Analyzing your dataset…</span>
                         </div>
                         {[1, 0.85, 0.7, 0.55].map((w, i) => (
                           <Skeleton key={i} className="h-3 rounded-full" style={{ width: `${w * 100}%` }} />
@@ -139,7 +139,7 @@ export default function DataQualityPage() {
                 <div className="flex flex-col gap-4">
                   {/* Features */}
                   <div className="rounded-2xl border border-white/[0.08] bg-white/[0.04] shadow-sm p-6 sm:p-8 backdrop-blur-md">
-                    <h3 className="text-sm font-bold text-gray-800 uppercase tracking-widest mb-5">What we analyse</h3>
+                    <h3 className="text-sm font-bold text-[#f1f5f9] uppercase tracking-widest mb-5">What we analyse</h3>
                     <div className="flex flex-col gap-4">
                       {FEATURES.map((f, i) => (
                         <motion.div
@@ -153,8 +153,8 @@ export default function DataQualityPage() {
                             <f.icon className="w-4 h-4 text-[#60a5fa]" />
                           </div>
                           <div>
-                            <p className="text-sm font-semibold text-gray-800">{f.label}</p>
-                            <p className="text-xs text-gray-400 mt-0.5 leading-relaxed">{f.desc}</p>
+                            <p className="text-sm font-semibold text-[#f1f5f9]">{f.label}</p>
+                            <p className="text-xs text-[#e2e8f0] mt-0.5 leading-relaxed">{f.desc}</p>
                           </div>
                         </motion.div>
                       ))}
@@ -187,8 +187,8 @@ export default function DataQualityPage() {
               {/* Results header */}
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Quality Report</h1>
-                  <p className="text-sm text-gray-400 mt-0.5">Analysis complete · {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+                  <h1 className="text-2xl font-bold text-white tracking-tight">Quality Report</h1>
+                  <p className="text-sm text-[#cbd5e1] mt-0.5">Analysis complete · {new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
                 </div>
                 <button
                   onClick={() => setAnalysis(null)}
