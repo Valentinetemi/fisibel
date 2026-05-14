@@ -125,6 +125,38 @@
 }
 
 @layer components {
+  .premium-mesh-noise {
+    background-image:
+      radial-gradient(circle at 18% 22%, rgba(16, 185, 129, 0.06) 0 1px, transparent 1px),
+      radial-gradient(circle at 82% 12%, rgba(212, 175, 55, 0.07) 0 1px, transparent 1px),
+      radial-gradient(circle at 55% 72%, rgba(15, 23, 42, 0.035) 0 1px, transparent 1px);
+    background-size: 28px 28px, 36px 36px, 22px 22px;
+    background-position: 0 0, 8px 12px, 16px 6px;
+  }
+
+  .generate-gold-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .generate-gold-shimmer::after {
+    content: '';
+    position: absolute;
+    inset: -20% auto -20% -45%;
+    width: 36%;
+    transform: skewX(-18deg);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 245, 196, 0.18),
+      rgba(212, 175, 55, 0.42),
+      rgba(255, 255, 255, 0.24),
+      transparent
+    );
+    animation: generate-gold-shimmer 5s ease-in-out infinite;
+    pointer-events: none;
+  }
+
   .btn-green-glow {
     @apply bg-green-600 hover:bg-green-700 text-white font-bold;
     position: relative;
@@ -154,6 +186,15 @@
   }
   100% {
     left: 100%;
+  }
+}
+
+@keyframes generate-gold-shimmer {
+  0%, 76% {
+    left: -45%;
+  }
+  92%, 100% {
+    left: 125%;
   }
 }
 

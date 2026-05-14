@@ -232,12 +232,16 @@ export default function GeneratePage() {
   };
 
   const glassCard =
-    "rounded-2xl border border-white/70 bg-white/70 p-6 shadow-[0_18px_48px_-20px_rgba(15,23,42,0.22),inset_0_1px_0_0_rgba(255,255,255,0.78)] backdrop-blur-2xl sm:p-8";
+    "rounded-2xl border border-white/60 bg-white/70 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.05)] backdrop-blur-md sm:p-8";
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#F2F4F7]">
+    <div className="relative min-h-screen overflow-hidden bg-[radial-gradient(circle_at_88%_0%,#F0FDF4_0%,#F8FAFC_48%,#F2F4F7_100%)]">
       <div
-        className="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_120%_70%_at_50%_-20%,rgba(16,185,129,0.09),transparent_50%),radial-gradient(ellipse_90%_60%_at_100%_0%,rgba(59,130,246,0.06),transparent_45%),radial-gradient(ellipse_80%_50%_at_0%_100%,rgba(148,163,184,0.12),transparent_50%)]"
+        className="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_90%_60%_at_100%_0%,rgba(16,185,129,0.12),transparent_48%),radial-gradient(ellipse_80%_55%_at_0%_100%,rgba(148,163,184,0.08),transparent_52%)]"
+        aria-hidden
+      />
+      <div
+        className="premium-mesh-noise pointer-events-none fixed inset-0 opacity-[0.32] mix-blend-multiply"
         aria-hidden
       />
       <div className="relative z-10">
@@ -387,7 +391,7 @@ export default function GeneratePage() {
                       />
                       <DataTable data={generatedData} headers={headers} />
 
-                      <div className="rounded-2xl border border-white/55 bg-white/40 p-6 shadow-[0_8px_32px_-12px_rgba(15,23,42,0.1),inset_0_1px_0_0_rgba(255,255,255,0.65)] backdrop-blur-2xl">
+                      <div className="rounded-2xl border border-white/60 bg-white/70 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.05)] backdrop-blur-md">
                         <div className="mb-4 flex items-center gap-2">
                           <div className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-50">
                             <CheckCircle className="h-3.5 w-3.5 text-emerald-600" />

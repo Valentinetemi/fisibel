@@ -37,7 +37,7 @@ export function DataTable({ data, headers }: DataTableProps) {
       transition={{ duration: 0.4, delay: 0.3 }}
     >
       <motion.div
-        className="overflow-hidden rounded-2xl border border-white/55 bg-white/35 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.65)] backdrop-blur-xl"
+        className="overflow-hidden rounded-2xl border border-white/60 bg-white/70 shadow-[0_20px_50px_rgba(0,0,0,0.05)] backdrop-blur-md"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4 }}
@@ -45,7 +45,7 @@ export function DataTable({ data, headers }: DataTableProps) {
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
-              <TableRow className="border-b border-white/40 bg-white/40 hover:bg-white/40">
+              <TableRow className="border-b border-white/40 bg-white/35 hover:bg-white/35">
                 {headers.map((header) => (
                   <TableHead key={header} className="font-semibold">
                     {header}
@@ -61,7 +61,7 @@ export function DataTable({ data, headers }: DataTableProps) {
                 >
                   {headers.map((header) => (
                     <TableCell key={`${idx}-${header}`} className="py-2">
-                      <span className="text-sm">{String(row[header] ?? '')}</span>
+                      <span className="text-sm text-[#1F2937]">{String(row[header] ?? '')}</span>
                     </TableCell>
                   ))}
                 </TableRow>

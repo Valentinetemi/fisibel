@@ -309,7 +309,7 @@ export function GenerateInput({
         type="button"
         onClick={submit}
         disabled={!prompt.trim() || isLoading}
-        className="w-full rounded-xl border border-emerald-400/30 bg-gradient-to-b from-emerald-500 to-emerald-600 py-3 text-sm font-semibold tracking-tight text-white shadow-[0_14px_30px_-14px_rgba(212,175,55,0.95),0_8px_18px_-10px_rgba(5,150,105,0.58),inset_0_1px_0_0_rgba(255,255,255,0.2)] backdrop-blur-sm transition-all hover:from-emerald-500 hover:to-emerald-600/95 hover:shadow-[0_18px_38px_-14px_rgba(212,175,55,0.95),0_10px_22px_-12px_rgba(5,150,105,0.6),inset_0_1px_0_0_rgba(255,255,255,0.24)] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-25 disabled:active:scale-100"
+        className="generate-gold-shimmer w-full rounded-xl border border-emerald-400/30 bg-gradient-to-br from-emerald-400 via-emerald-600 to-emerald-800 py-3 text-sm font-semibold tracking-tight text-white shadow-[0_14px_30px_-14px_rgba(212,175,55,0.95),0_8px_18px_-10px_rgba(5,150,105,0.58),inset_0_1px_0_0_rgba(255,255,255,0.28)] backdrop-blur-sm transition-all hover:from-emerald-400 hover:via-emerald-600 hover:to-emerald-900 hover:shadow-[0_18px_38px_-14px_rgba(212,175,55,0.95),0_10px_22px_-12px_rgba(5,150,105,0.6),inset_0_1px_0_0_rgba(255,255,255,0.3)] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-25 disabled:active:scale-100"
       >
         <AnimatePresence mode="wait">
           {isLoading ? (

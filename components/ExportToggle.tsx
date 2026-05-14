@@ -63,7 +63,7 @@ export function ExportToggle({ data, headers, fileBasename }: ExportToggleProps)
 
   return (
     <motion.div
-      className="flex flex-col gap-4 rounded-2xl border border-white/55 bg-white/40 p-5 shadow-[0_8px_32px_-12px_rgba(15,23,42,0.1),inset_0_1px_0_0_rgba(255,255,255,0.65)] backdrop-blur-2xl"
+      className="flex flex-col gap-4 rounded-2xl border border-white/60 bg-white/70 p-5 shadow-[0_20px_50px_rgba(0,0,0,0.05)] backdrop-blur-md"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2, duration: 0.4 }}

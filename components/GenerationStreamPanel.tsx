@@ -24,7 +24,7 @@ function insightPulse(rawStream: string, csv: string, isStreaming: boolean): boo
 }
 
 const shell =
-  'flex min-h-[min(72vh,640px)] flex-col overflow-hidden rounded-2xl border border-white/70 bg-white/70 shadow-[0_18px_56px_-22px_rgba(15,23,42,0.24),inset_0_1px_0_0_rgba(255,255,255,0.78)] backdrop-blur-2xl'
+  'flex min-h-[min(72vh,640px)] flex-col overflow-hidden rounded-2xl border border-white/60 bg-white/70 shadow-[0_20px_50px_rgba(0,0,0,0.05)] backdrop-blur-md'
 
 export function GenerationStreamPanel({
   rawStream,
@@ -62,7 +62,7 @@ export function GenerationStreamPanel({
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className={shell}
     >
-      <div className="flex min-h-[26%] max-h-[34%] shrink-0 flex-[0.3] flex-col border-b border-white/50 border-t-2 border-t-[#D4AF37]">
+      <div className="flex min-h-[26%] max-h-[34%] shrink-0 flex-[0.3] flex-col border-b border-white/50 border-t-2 border-t-[#D4AF37] shadow-[inset_0_2px_0_rgba(212,175,55,0.22),0_-6px_22px_-16px_rgba(212,175,55,0.9)]">
         <div className="flex min-h-0 flex-1 flex-col bg-[#FDFCF0]/50 px-5 py-4 backdrop-blur-xl">
           <div className="mb-2 flex items-center justify-between gap-3">
             <div className="flex items-center gap-2">
@@ -135,7 +135,7 @@ export function GenerationStreamPanel({
             initial={false}
             animate={{ opacity: csv.length === 0 && isStreaming ? 0.72 : 1 }}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="whitespace-pre-wrap break-words font-[family-name:var(--font-jetbrains-mono)] text-[12px] leading-[1.7] text-slate-600 antialiased selection:bg-emerald-200/50 selection:text-slate-900"
+            className="whitespace-pre-wrap break-words font-[family-name:var(--font-jetbrains-mono)] text-[12px] leading-[1.7] text-[#1F2937] antialiased selection:bg-emerald-200/50 selection:text-slate-900"
             style={{ fontFeatureSettings: '"liga" 0' }}
           >
             {csv}
