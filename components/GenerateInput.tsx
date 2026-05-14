@@ -155,7 +155,7 @@ export function GenerateInput({
                 onClick={() => setDomain((prev) => (prev === d.id ? '' : d.id))}
                 className={`rounded-md border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide shadow-[inset_0_1px_0_0_rgba(255,255,255,0.5)] backdrop-blur-md transition-all duration-200 active:scale-[0.97] ${
                   active
-                    ? 'border-emerald-400/45 bg-emerald-500/20 text-emerald-950 ring-1 ring-emerald-500/20'
+                    ? 'border-emerald-400/45 bg-emerald-500/20 text-emerald-950 ring-1 ring-emerald-500/20 hover:border-[#D4AF37]'
                     : 'border-white/50 bg-white/30 text-slate-600 hover:border-white/70 hover:bg-white/45'
                 }`}
               >
@@ -171,7 +171,7 @@ export function GenerateInput({
       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
       <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
     </div>
-    <span className="text-[10px] font-medium text-emerald-700/80 uppercase tracking-wider">
+    <span className="text-[10px] font-semibold text-[#8A6A13] uppercase tracking-wider">
       {domain === 'malaria' && "Grounding: WHO Malaria Report 2025 (Sub-Saharan African Cohort)"}
       {domain === 'maternal' && "Grounding: World Bank Maternal Health Data (Nigeria/Ghana Focus)"}
       {domain === 'epidemic' && "Grounding: CDC Africa Infectious Disease Surveillance Patterns"}
@@ -210,7 +210,7 @@ export function GenerateInput({
               type="button"
               onClick={submit}
               disabled={!prompt.trim() || isLoading}
-              className="flex items-center gap-1 rounded-md border border-emerald-500/25 bg-emerald-600/90 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-white shadow-sm backdrop-blur-sm transition-colors hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-30"
+              className="flex items-center gap-1 rounded-md border border-emerald-500/25 bg-emerald-600/90 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-white shadow-[0_8px_18px_-10px_rgba(212,175,55,0.85),0_2px_8px_-4px_rgba(5,150,105,0.55)] backdrop-blur-sm transition-colors hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-30"
             >
               {isLoading ? (
                 <>
@@ -309,7 +309,7 @@ export function GenerateInput({
         type="button"
         onClick={submit}
         disabled={!prompt.trim() || isLoading}
-        className="w-full rounded-xl border border-emerald-400/30 bg-gradient-to-b from-emerald-500 to-emerald-600 py-3 text-sm font-semibold tracking-tight text-white shadow-[0_4px_14px_-4px_rgba(5,150,105,0.45),inset_0_1px_0_0_rgba(255,255,255,0.2)] backdrop-blur-sm transition-all hover:from-emerald-500 hover:to-emerald-600/95 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-25 disabled:active:scale-100"
+        className="w-full rounded-xl border border-emerald-400/30 bg-gradient-to-b from-emerald-500 to-emerald-600 py-3 text-sm font-semibold tracking-tight text-white shadow-[0_14px_30px_-14px_rgba(212,175,55,0.95),0_8px_18px_-10px_rgba(5,150,105,0.58),inset_0_1px_0_0_rgba(255,255,255,0.2)] backdrop-blur-sm transition-all hover:from-emerald-500 hover:to-emerald-600/95 hover:shadow-[0_18px_38px_-14px_rgba(212,175,55,0.95),0_10px_22px_-12px_rgba(5,150,105,0.6),inset_0_1px_0_0_rgba(255,255,255,0.24)] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-25 disabled:active:scale-100"
       >
         <AnimatePresence mode="wait">
           {isLoading ? (

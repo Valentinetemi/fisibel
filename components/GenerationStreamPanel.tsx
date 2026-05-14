@@ -24,7 +24,7 @@ function insightPulse(rawStream: string, csv: string, isStreaming: boolean): boo
 }
 
 const shell =
-  'flex min-h-[min(72vh,640px)] flex-col overflow-hidden rounded-2xl border border-white/55 bg-white/35 shadow-[0_12px_48px_-16px_rgba(15,23,42,0.14),inset_0_1px_0_0_rgba(255,255,255,0.7)] backdrop-blur-2xl'
+  'flex min-h-[min(72vh,640px)] flex-col overflow-hidden rounded-2xl border border-white/70 bg-white/70 shadow-[0_18px_56px_-22px_rgba(15,23,42,0.24),inset_0_1px_0_0_rgba(255,255,255,0.78)] backdrop-blur-2xl'
 
 export function GenerationStreamPanel({
   rawStream,
@@ -62,20 +62,20 @@ export function GenerationStreamPanel({
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className={shell}
     >
-      <div className="flex min-h-[26%] max-h-[34%] shrink-0 flex-[0.3] flex-col border-b border-white/40">
-        <div className="flex min-h-0 flex-1 flex-col bg-gradient-to-b from-white/50 to-white/25 px-5 py-4 backdrop-blur-xl">
+      <div className="flex min-h-[26%] max-h-[34%] shrink-0 flex-[0.3] flex-col border-b border-white/50 border-t-2 border-t-[#D4AF37]">
+        <div className="flex min-h-0 flex-1 flex-col bg-[#FDFCF0]/50 px-5 py-4 backdrop-blur-xl">
           <div className="mb-2 flex items-center justify-between gap-3">
             <div className="flex items-center gap-2">
-              <span className="h-1 w-1 rounded-full bg-emerald-500/80" />
-              <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-500">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#D4AF37] shadow-[0_0_10px_rgba(212,175,55,0.9)]" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#334155]">
                 AI Insight
               </span>
             </div>
             {(pulse || showBoot) && (
               <span className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
                 <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/35" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#D4AF37]/45" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#D4AF37] shadow-[0_0_10px_rgba(212,175,55,0.85)]" />
                 </span>
                 {showBoot ? 'Queued' : 'Reasoning'}
               </span>
@@ -97,10 +97,10 @@ export function GenerationStreamPanel({
         </div>
       </div>
 
-      <div className="flex min-h-0 flex-[0.7] flex-col bg-white/20 backdrop-blur-xl">
+      <div className="flex min-h-0 flex-[0.7] flex-col bg-white/35 backdrop-blur-xl">
         <div className="flex shrink-0 items-center justify-between border-b border-white/35 px-5 py-2.5">
           <div className="flex items-center gap-2">
-            <span className="font-mono text-[12px] font-medium uppercase tracking-[0.18em] text-slate-500">
+            <span className="font-mono text-[12px] font-medium uppercase tracking-[0.18em] text-[#334155]">
               Live Dataset
             </span>
             {isStreaming && (

@@ -232,10 +232,10 @@ export default function GeneratePage() {
   };
 
   const glassCard =
-    "rounded-2xl border border-white/55 bg-white/40 p-6 shadow-[0_12px_40px_-16px_rgba(15,23,42,0.12),inset_0_1px_0_0_rgba(255,255,255,0.72)] backdrop-blur-2xl sm:p-8";
+    "rounded-2xl border border-white/70 bg-white/70 p-6 shadow-[0_18px_48px_-20px_rgba(15,23,42,0.22),inset_0_1px_0_0_rgba(255,255,255,0.78)] backdrop-blur-2xl sm:p-8";
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-slate-100">
+    <div className="relative min-h-screen overflow-hidden bg-[#F2F4F7]">
       <div
         className="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_120%_70%_at_50%_-20%,rgba(16,185,129,0.09),transparent_50%),radial-gradient(ellipse_90%_60%_at_100%_0%,rgba(59,130,246,0.06),transparent_45%),radial-gradient(ellipse_80%_50%_at_0%_100%,rgba(148,163,184,0.12),transparent_50%)]"
         aria-hidden
