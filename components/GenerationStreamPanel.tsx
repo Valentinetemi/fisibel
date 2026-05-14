@@ -27,7 +27,7 @@ function insightPulse(rawStream: string, csv: string, isStreaming: boolean): boo
 }
 
 const shell =
-  'flex min-h-[min(72vh,640px)] flex-col overflow-hidden rounded-2xl border border-white/60 bg-white/70 shadow-[0_20px_50px_rgba(0,0,0,0.05)] backdrop-blur-md'
+  'flex min-h-[min(72vh,640px)] flex-col overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.04] shadow-[0_20px_50px_rgba(0,0,0,0.18)] backdrop-blur-md'
 
 export function GenerationStreamPanel({
   rawStream,
@@ -68,25 +68,25 @@ export function GenerationStreamPanel({
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className={shell}
     >
-      <div className="flex min-h-[26%] max-h-[34%] shrink-0 flex-[0.3] flex-col border-b border-white/50 border-t-2 border-t-[#D4AF37] shadow-[inset_0_2px_0_rgba(212,175,55,0.22),0_-6px_22px_-16px_rgba(212,175,55,0.9)]">
-        <div className="flex min-h-0 flex-1 flex-col bg-[#FDFCF0]/50 px-5 py-4 backdrop-blur-xl">
+      <div className="flex min-h-[26%] max-h-[34%] shrink-0 flex-[0.3] flex-col border-b border-white/[0.08] border-t-2 border-t-[#3b82f6] shadow-[inset_0_2px_0_rgba(59,130,246,0.22),0_-6px_22px_-16px_rgba(59,130,246,0.9)]">
+        <div className="flex min-h-0 flex-1 flex-col bg-white/[0.04] px-5 py-4 backdrop-blur-xl">
           <div className="mb-2 flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
             <div className="flex items-center gap-2">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#D4AF37] shadow-[0_0_10px_rgba(212,175,55,0.9)]" />
-              <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#334155]">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#3b82f6] shadow-[0_0_10px_rgba(59,130,246,0.9)]" />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white">
                 AI Insight
               </span>
             </div>
             <div className="flex flex-col items-start gap-1 sm:items-end">
               <span className="flex items-center gap-1.5 text-[9px] font-medium uppercase tracking-[0.16em] text-slate-400">
-                <span className="h-1 w-1 rounded-full bg-slate-300" />
+                <span className="h-1 w-1 rounded-full bg-[#60a5fa]" />
                 POWERED BY GEMMA 4 · LOCAL OLLAMA INSTANCE
               </span>
               {(pulse || showBoot) && (
                 <span className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
                   <span className="relative flex h-1.5 w-1.5">
-                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#D4AF37]/45" />
-                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#D4AF37] shadow-[0_0_10px_rgba(212,175,55,0.85)]" />
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400/45" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#3b82f6] shadow-[0_0_10px_rgba(59,130,246,0.85)]" />
                   </span>
                   {showBoot ? 'Queued' : 'Reasoning'}
                 </span>
@@ -94,7 +94,7 @@ export function GenerationStreamPanel({
             </div>
           </div>
           <div className="min-h-0 flex-1 overflow-y-auto">
-            <p className="text-[14px] font-normal leading-relaxed tracking-tight text-slate-600 antialiased sm:text-[15px] sm:leading-[1.65]">
+            <p className="text-[14px] font-normal leading-relaxed tracking-tight text-slate-100 antialiased sm:text-[15px] sm:leading-[1.65]">
               {reasoning.trim() ? (
                 reasoning.trim()
               ) : showBoot && visualContext ? (
@@ -114,14 +114,14 @@ export function GenerationStreamPanel({
         </div>
       </div>
 
-      <div className="flex min-h-0 flex-[0.7] flex-col bg-white/35 backdrop-blur-xl">
-        <div className="flex shrink-0 items-center justify-between border-b border-white/35 px-5 py-2.5">
+      <div className="flex min-h-0 flex-[0.7] flex-col bg-white/[0.04] backdrop-blur-xl">
+        <div className="flex shrink-0 items-center justify-between border-b border-white/[0.08] px-5 py-2.5">
           <div className="flex items-center gap-2">
-            <span className="font-mono text-[12px] font-medium uppercase tracking-[0.18em] text-[#334155]">
+            <span className="font-mono text-[12px] font-medium uppercase tracking-[0.18em] text-white">
               Live Dataset
             </span>
             {isStreaming && (
-              <span className="rounded border border-emerald-500/20 bg-emerald-500/10 px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-emerald-800">
+              <span className="rounded border border-blue-500/20 bg-blue-500/10 px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-slate-200">
                 Live
               </span>
             )}
@@ -132,7 +132,7 @@ export function GenerationStreamPanel({
               role="switch"
               aria-checked={showMirror}
               onClick={() => setShowMirror((value) => !value)}
-              className="group flex items-center gap-2 rounded-full border border-white/60 bg-white/40 px-2 py-1 shadow-[0_8px_22px_-16px_rgba(15,23,42,0.45)] backdrop-blur-xl transition-all hover:border-[#D4AF37]/70 hover:bg-white/55"
+              className="group flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.04] px-2 py-1 shadow-[0_8px_22px_-16px_rgba(0,0,0,0.45)] backdrop-blur-xl transition-all hover:border-[#3b82f6]/70 hover:bg-white/[0.08]"
             >
               <span className="hidden text-[9px] font-semibold uppercase tracking-[0.16em] text-slate-500 sm:inline">
                 Distribution Mirror
@@ -140,13 +140,13 @@ export function GenerationStreamPanel({
               <span
                 className={`flex h-4 w-7 items-center rounded-full border p-0.5 transition-all ${
                   showMirror
-                    ? 'justify-end border-emerald-500/35 bg-emerald-600 shadow-[0_0_14px_rgba(212,175,55,0.28)]'
+                    ? 'justify-end border-blue-500/35 bg-[#3b82f6] shadow-[0_0_14px_rgba(59,130,246,0.28)]'
                     : 'justify-start border-slate-300/60 bg-slate-200/60'
                 }`}
               >
                 <span
                   className={`h-2.5 w-2.5 rounded-full transition-colors ${
-                    showMirror ? 'bg-[#D4AF37]' : 'bg-white'
+                    showMirror ? 'bg-[#60a5fa]' : 'bg-white'
                   }`}
                 />
               </span>
@@ -159,7 +159,7 @@ export function GenerationStreamPanel({
             {isStreaming && (
               <span className="h-0.5 w-14 overflow-hidden rounded-full bg-slate-300/60">
                 <motion.span
-                  className="block h-full w-1/2 rounded-full bg-emerald-500/80"
+                  className="block h-full w-1/2 rounded-full bg-[#3b82f6]/80"
                   animate={{ x: ['-100%', '220%'] }}
                   transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
                 />
@@ -187,12 +187,12 @@ export function GenerationStreamPanel({
               initial={false}
               animate={{ opacity: csv.length === 0 && isStreaming ? 0.72 : 1 }}
               transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="whitespace-pre-wrap break-words font-[family-name:var(--font-jetbrains-mono)] text-[12px] leading-[1.7] text-[#1F2937] antialiased selection:bg-emerald-200/50 selection:text-slate-900"
+              className="whitespace-pre-wrap break-words font-[family-name:var(--font-jetbrains-mono)] text-[12px] leading-[1.7] text-slate-100 antialiased selection:bg-blue-400/50 selection:text-white"
               style={{ fontFeatureSettings: '"liga" 0' }}
             >
               {csv}
               {isStreaming && (
-                <span className="ml-0.5 inline-block h-3 w-px animate-pulse bg-emerald-600/45 align-middle" />
+                <span className="ml-0.5 inline-block h-3 w-px animate-pulse bg-[#3b82f6]/45 align-middle" />
               )}
             </motion.pre>
           )}
@@ -340,20 +340,20 @@ function SourceAttributionFeed({
   })
 
   return (
-    <div className="mb-3 overflow-hidden rounded-2xl border border-white/45 bg-white/30 shadow-[0_16px_36px_-28px_rgba(15,23,42,0.5)] backdrop-blur-xl">
-      <div className="flex items-center justify-between border-b border-white/35 px-3 py-2">
-        <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#334155]">
+    <div className="mb-3 overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.04] shadow-[0_16px_36px_-28px_rgba(0,0,0,0.7)] backdrop-blur-xl">
+      <div className="flex items-center justify-between border-b border-white/[0.08] px-3 py-2">
+        <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-white">
           Live Source Attribution
         </span>
-        <span className="flex items-center gap-1.5 font-mono text-[9px] font-semibold uppercase tracking-[0.16em] text-emerald-700">
+        <span className="flex items-center gap-1.5 font-mono text-[9px] font-semibold uppercase tracking-[0.16em] text-slate-200">
           <span className="relative flex h-1.5 w-1.5">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400/60" />
-            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-blue-400/60" />
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#3b82f6]" />
           </span>
           {isStreaming ? 'Live' : 'Indexed'}
         </span>
       </div>
-      <div className="bg-[linear-gradient(rgba(15,23,42,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.03)_1px,transparent_1px)] bg-[size:18px_18px] px-3 py-2">
+      <div className="bg-[linear-gradient(rgba(226,232,240,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(226,232,240,0.03)_1px,transparent_1px)] bg-[size:18px_18px] px-3 py-2">
         <div className="space-y-1.5 font-mono text-[10px]">
           {milestones.map((milestone, index) => (
             <motion.div
@@ -361,14 +361,14 @@ function SourceAttributionFeed({
               initial={{ opacity: 0, x: -4 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.24, delay: index * 0.04 }}
-              className="flex items-center gap-2 text-slate-600"
+              className="flex items-center gap-2 text-slate-200"
             >
               <span
                 className={`h-1.5 w-1.5 shrink-0 rounded-full shadow-[0_0_10px_currentColor] ${
                   milestone.tone === 'global'
                     ? 'bg-blue-500 text-blue-500'
                     : milestone.tone === 'regional'
-                      ? 'bg-emerald-500 text-emerald-500'
+                      ? 'bg-[#3b82f6] text-[#3b82f6]'
                       : 'bg-slate-400 text-slate-400'
                 }`}
               />
@@ -425,9 +425,9 @@ function VisualProvenanceMilestone() {
       initial={{ opacity: 0, y: -4 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.28 }}
-      className="mb-3 flex items-center gap-2 rounded-xl border border-white/45 bg-white/30 px-3 py-2 font-[family-name:var(--font-jetbrains-mono)] text-[10px] text-slate-600 shadow-[0_12px_28px_-24px_rgba(15,23,42,0.45)] backdrop-blur-xl"
+      className="mb-3 flex items-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.04] px-3 py-2 font-[family-name:var(--font-jetbrains-mono)] text-[10px] text-slate-200 shadow-[0_12px_28px_-24px_rgba(0,0,0,0.65)] backdrop-blur-xl"
     >
-      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.7)]" />
+      <span className="h-1.5 w-1.5 rounded-full bg-[#3b82f6] shadow-[0_0_10px_rgba(59,130,246,0.7)]" />
       <span>[00.8s] Grounding: Visual Document Context (Uploaded)</span>
     </motion.div>
   )
@@ -443,20 +443,20 @@ function DistributionMirror() {
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-      className="flex min-h-[340px] flex-col gap-4 rounded-2xl border border-white/60 bg-white/40 p-4 shadow-[0_20px_50px_rgba(0,0,0,0.05)] backdrop-blur-xl"
+      className="flex min-h-[340px] flex-col gap-4 rounded-2xl border border-white/[0.08] bg-white/[0.04] p-4 shadow-[0_20px_50px_rgba(0,0,0,0.18)] backdrop-blur-xl"
     >
       <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-[#334155]">
+          <p className="font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-white">
             Scientific Validation Mirror
           </p>
-          <h3 className="mt-1 text-sm font-semibold text-slate-800">
+          <h3 className="mt-1 text-sm font-semibold text-slate-100">
             Age Distribution Alignment
           </h3>
         </div>
         <div className="flex flex-wrap gap-3 text-[10px] font-medium text-slate-500">
           <span className="flex items-center gap-1.5">
-            <span className="h-0.5 w-5 rounded-full bg-emerald-600" />
+            <span className="h-0.5 w-5 rounded-full bg-[#3b82f6]" />
             Fisibel Synthetic
           </span>
           <span className="flex items-center gap-1.5">
@@ -468,7 +468,7 @@ function DistributionMirror() {
         </div>
       </div>
 
-      <div className="min-h-0 flex-1 rounded-xl border border-white/55 bg-white/35 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.45)] backdrop-blur-xl">
+      <div className="min-h-0 flex-1 rounded-xl border border-white/[0.08] bg-white/[0.04] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl">
         <svg
           viewBox="0 0 520 230"
           role="img"
@@ -477,8 +477,8 @@ function DistributionMirror() {
         >
           <defs>
             <linearGradient id="mirrorFill" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor="#10B981" stopOpacity="0.14" />
-              <stop offset="100%" stopColor="#10B981" stopOpacity="0" />
+              <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.14" />
+              <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
             </linearGradient>
           </defs>
           {[42, 82, 122, 162, 202].map((y) => (
@@ -506,7 +506,7 @@ function DistributionMirror() {
           <motion.path
             d={syntheticPath}
             fill="none"
-            stroke="#059669"
+            stroke="#3b82f6"
             strokeWidth="4"
             strokeLinecap="round"
             initial={{ pathLength: 0 }}
@@ -534,7 +534,7 @@ function DistributionMirror() {
         ].map((metric) => (
           <div
             key={metric}
-            className="rounded-xl border border-white/60 bg-white/40 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#B28B18] shadow-[0_12px_28px_-20px_rgba(15,23,42,0.38)] backdrop-blur-xl"
+            className="rounded-xl border border-white/[0.08] bg-white/[0.04] px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#60a5fa] shadow-[0_12px_28px_-20px_rgba(0,0,0,0.5)] backdrop-blur-xl"
           >
             {metric}
           </div>

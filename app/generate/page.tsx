@@ -242,16 +242,16 @@ export default function GeneratePage() {
   };
 
   const glassCard =
-    "rounded-2xl border border-white/60 bg-white/70 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.05)] backdrop-blur-md sm:p-8";
+    "rounded-2xl border border-white/[0.08] bg-white/[0.04] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.18)] backdrop-blur-md sm:p-8";
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[radial-gradient(circle_at_88%_0%,#F4D98A_0%,#F7F1DE_38%,#F8F5EC_72%,#F3EBD4_100%)]">
+    <div className="relative min-h-screen overflow-hidden bg-[radial-gradient(ellipse_at_20%_50%,#1a3a6b_0%,transparent_50%),radial-gradient(ellipse_at_80%_20%,#0d2d5e_0%,transparent_50%),radial-gradient(ellipse_at_60%_80%,#162952_0%,transparent_40%),#060d1f]">
       <div
-        className="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_90%_60%_at_100%_0%,rgba(212,175,55,0.16),transparent_48%),radial-gradient(ellipse_80%_55%_at_0%_100%,rgba(16,185,129,0.07),transparent_52%)]"
+        className="pointer-events-none fixed inset-0 bg-[radial-gradient(ellipse_90%_60%_at_100%_0%,rgba(59,130,246,0.18),transparent_48%),radial-gradient(ellipse_80%_55%_at_0%_100%,rgba(96,165,250,0.08),transparent_52%)] blur-2xl"
         aria-hidden
       />
       <div
-        className="premium-mesh-noise pointer-events-none fixed inset-0 opacity-[0.32] mix-blend-multiply"
+        className="premium-mesh-noise pointer-events-none fixed inset-0 opacity-[0.2] mix-blend-screen"
         aria-hidden
       />
       <div className="relative z-10">
@@ -269,13 +269,13 @@ export default function GeneratePage() {
                 className="flex flex-col items-center"
               >
                 <div className="mb-10 text-center">
-                  <p className="mb-2 font-mono text-[10px] font-semibold uppercase tracking-[0.26em] text-slate-500">
+                  <p className="mb-2 font-mono text-[10px] font-semibold uppercase tracking-[0.26em] text-slate-400">
                     Synthetic data · Clinical infra
                   </p>
-                  <h1 className="text-balance text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl sm:leading-[1.12] lg:text-[2.35rem] lg:leading-[1.1]">
+                  <h1 className="text-balance text-3xl font-bold tracking-tight text-white sm:text-4xl sm:leading-[1.12] lg:text-[2.35rem] lg:leading-[1.1]">
                     Generate African health datasets
                   </h1>
-                  <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-slate-600 sm:text-[15px]">
+                  <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-slate-300 sm:text-[15px]">
                     PII-safe defaults, streaming CSV, and catalog hooks—built
                     for ML teams shipping on real-world African cohorts.
                   </p>
@@ -290,10 +290,10 @@ export default function GeneratePage() {
                       onPromptChange={handlePromptChange}
                     />
 
-                    <div className="mt-8 flex items-start gap-2.5 border-t border-white/40 pt-6">
-                      <Sparkles className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-600/80" />
-                      <p className="text-[10px] font-medium leading-relaxed text-slate-500">
-                        <span className="text-slate-600">Ops note:</span> name
+                    <div className="mt-8 flex items-start gap-2.5 border-t border-white/[0.08] pt-6">
+                      <Sparkles className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#60a5fa]" />
+                      <p className="text-[10px] font-medium leading-relaxed text-slate-300">
+                        <span className="text-slate-200">Ops note:</span> name
                         states, LGAs, or counties—not only the country—for
                         distribution fidelity.
                       </p>
@@ -308,9 +308,9 @@ export default function GeneratePage() {
                     ].map((f) => (
                       <div
                         key={f.k}
-                        className="rounded-xl border border-white/50 bg-white/35 px-2 py-3 text-center shadow-[inset_0_1px_0_0_rgba(255,255,255,0.65)] backdrop-blur-lg"
+                        className="rounded-xl border border-white/[0.08] bg-white/[0.04] px-2 py-3 text-center shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] backdrop-blur-lg"
                       >
-                        <span className="block text-[10px] font-semibold uppercase tracking-wide text-slate-700">
+                        <span className="block text-[10px] font-semibold uppercase tracking-wide text-white">
                           {f.label}
                         </span>
                         <span className="mt-0.5 block text-[9px] font-medium uppercase tracking-wider text-slate-400">
@@ -339,11 +339,11 @@ export default function GeneratePage() {
                   className="lg:sticky lg:top-8"
                 >
                   <div className={glassCard}>
-                    <div className="mb-6 flex items-center justify-between gap-2 border-b border-white/35 pb-4">
-                      <span className="font-mono text-[9px] font-semibold uppercase tracking-[0.2em] text-slate-500">
+                    <div className="mb-6 flex items-center justify-between gap-2 border-b border-white/[0.08] pb-4">
+                      <span className="font-mono text-[9px] font-semibold uppercase tracking-[0.2em] text-slate-300">
                         Control plane
                       </span>
-                      <span className="rounded border border-white/50 bg-white/30 px-2 py-0.5 text-[8px] font-bold uppercase tracking-wider text-slate-500 backdrop-blur-sm">
+                      <span className="rounded border border-white/[0.08] bg-white/[0.04] px-2 py-0.5 text-[8px] font-bold uppercase tracking-wider text-slate-300 backdrop-blur-sm">
                         v1
                       </span>
                     </div>
@@ -353,10 +353,10 @@ export default function GeneratePage() {
                       initialPrompt={userPrompt}
                       onPromptChange={handlePromptChange}
                     />
-                    <div className="mt-8 flex items-start gap-2.5 border-t border-white/40 pt-6">
-                      <Sparkles className="mt-0.5 h-3.5 w-3.5 shrink-0 text-emerald-600/80" />
-                      <p className="text-[10px] font-medium leading-relaxed text-slate-500">
-                        <span className="text-slate-600">Ops note:</span>{" "}
+                    <div className="mt-8 flex items-start gap-2.5 border-t border-white/[0.08] pt-6">
+                      <Sparkles className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#60a5fa]" />
+                      <p className="text-[10px] font-medium leading-relaxed text-slate-300">
+                        <span className="text-slate-200">Ops note:</span>{" "}
                         Regenerate while the stream stays hot—no session reset.
                       </p>
                     </div>
@@ -403,12 +403,12 @@ export default function GeneratePage() {
                       />
                       <DataTable data={generatedData} headers={headers} />
 
-                      <div className="rounded-2xl border border-white/60 bg-white/70 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.05)] backdrop-blur-md">
+                      <div className="rounded-2xl border border-white/[0.08] bg-white/[0.04] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.18)] backdrop-blur-md">
                         <div className="mb-4 flex items-center gap-2">
-                          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-50">
-                            <CheckCircle className="h-3.5 w-3.5 text-emerald-600" />
+                          <div className="flex h-6 w-6 items-center justify-center rounded-full bg-blue-500/10">
+                            <CheckCircle className="h-3.5 w-3.5 text-[#60a5fa]" />
                           </div>
-                          <h3 className="text-sm font-medium text-slate-800">
+                          <h3 className="text-sm font-medium text-white">
                             Dataset ready
                           </h3>
                         </div>
@@ -431,15 +431,15 @@ export default function GeneratePage() {
                               initial={{ opacity: 0, x: -4 }}
                               animate={{ opacity: 1, x: 0 }}
                               transition={{ delay: i * 0.06 }}
-                              className="flex items-center gap-2 text-xs text-slate-500"
+                              className="flex items-center gap-2 text-xs text-slate-300"
                             >
-                              <ChevronRight className="h-3 w-3 shrink-0 text-emerald-600/60" />
+                              <ChevronRight className="h-3 w-3 shrink-0 text-[#60a5fa]" />
                               <span>
                                 {item.text}{" "}
                                 {"href" in item && item.href && (
                                   <Link
                                     href={item.href}
-                                    className="font-medium text-emerald-700 hover:underline"
+                                    className="font-medium text-slate-100 hover:underline"
                                   >
                                     {item.link}
                                   </Link>
@@ -448,12 +448,12 @@ export default function GeneratePage() {
                             </motion.li>
                           ))}
                         </ul>
-                        <div className="border-t border-white/35 pt-5">
-                          <p className="mb-3 text-xs font-medium text-slate-500">
+                        <div className="border-t border-white/[0.08] pt-5">
+                          <p className="mb-3 text-xs font-medium text-slate-300">
                             Ready to check training quality?
                           </p>
                           <Link href="/data-quality">
-                            <Button className="h-9 gap-2 rounded-xl bg-emerald-600 px-4 text-xs text-white hover:bg-emerald-700 sm:w-auto">
+                            <Button className="h-9 gap-2 rounded-xl bg-[#3b82f6] px-4 text-xs text-white hover:bg-[#2563eb] sm:w-auto">
                               <Upload className="h-3.5 w-3.5" />
                               Check Data Quality
                             </Button>

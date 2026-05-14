@@ -37,7 +37,7 @@ export function DataTable({ data, headers }: DataTableProps) {
       transition={{ duration: 0.4, delay: 0.3 }}
     >
       <motion.div
-        className="overflow-hidden rounded-2xl border border-white/60 bg-white/70 shadow-[0_20px_50px_rgba(0,0,0,0.05)] backdrop-blur-md"
+        className="overflow-hidden rounded-2xl border border-white/[0.08] bg-white/[0.04] shadow-[0_20px_50px_rgba(0,0,0,0.18)] backdrop-blur-md"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4 }}
@@ -45,7 +45,7 @@ export function DataTable({ data, headers }: DataTableProps) {
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
-              <TableRow className="border-b border-white/40 bg-white/35 hover:bg-white/35">
+              <TableRow className="border-b border-white/[0.08] bg-white/[0.04] hover:bg-white/[0.04]">
                 {headers.map((header) => (
                   <TableHead key={header} className="font-semibold">
                     {header}
@@ -57,11 +57,11 @@ export function DataTable({ data, headers }: DataTableProps) {
               {paginatedData.map((row, idx) => (
                 <TableRow
                   key={idx}
-                  className="border-white/30 hover:bg-white/25"
+                  className="border-white/[0.08] hover:bg-white/[0.04]"
                 >
                   {headers.map((header) => (
                     <TableCell key={`${idx}-${header}`} className="py-2">
-                      <span className="text-sm text-[#1F2937]">{String(row[header] ?? '')}</span>
+                      <span className="text-sm text-slate-100">{String(row[header] ?? '')}</span>
                     </TableCell>
                   ))}
                 </TableRow>
@@ -78,7 +78,7 @@ export function DataTable({ data, headers }: DataTableProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.3 }}
       >
-        <p className="text-xs font-medium text-slate-500">
+        <p className="text-xs font-medium text-slate-300">
           Page {currentPage} of {totalPages} ({data.length} total rows)
         </p>
         <div className="flex gap-2">

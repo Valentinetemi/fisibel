@@ -63,14 +63,14 @@ export function ExportToggle({ data, headers, fileBasename }: ExportToggleProps)
 
   return (
     <motion.div
-      className="flex flex-col gap-4 rounded-2xl border border-white/60 bg-white/70 p-5 shadow-[0_20px_50px_rgba(0,0,0,0.05)] backdrop-blur-md"
+      className="flex flex-col gap-4 rounded-2xl border border-white/[0.08] bg-white/[0.04] p-5 shadow-[0_20px_50px_rgba(0,0,0,0.18)] backdrop-blur-md"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.2, duration: 0.4 }}
     >
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="space-y-2">
-          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-500">
+          <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-300">
             Export format
           </p>
           <ToggleGroup type="single" value={format} onValueChange={(v) => setFormat(v as any)}>
@@ -85,7 +85,7 @@ export function ExportToggle({ data, headers, fileBasename }: ExportToggleProps)
               variant="outline"
               size="sm"
               onClick={handleCopy}
-              className="flex items-center gap-2 border-white/55 bg-white/35 backdrop-blur-sm hover:bg-white/50"
+              className="flex items-center gap-2 border-[#3b82f6] bg-transparent text-[#60a5fa] backdrop-blur-sm hover:bg-blue-500/10 hover:text-[#60a5fa]"
             >
               <Copy className="h-4 w-4" />
               {copied ? 'Copied!' : 'Copy'}
@@ -101,7 +101,7 @@ export function ExportToggle({ data, headers, fileBasename }: ExportToggleProps)
             <Button
               size="sm"
               onClick={handleDownload}
-              className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700"
+              className="flex items-center gap-2 bg-[#3b82f6] text-white hover:bg-[#2563eb]"
             >
               <Download className="h-4 w-4" />
               Download

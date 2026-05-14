@@ -91,7 +91,7 @@ function useTypewriter(strings: string[], speed = 32, pause = 2600) {
 }
 
 const glassField =
-  'rounded-xl border border-white/55 bg-white/35 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.65)] backdrop-blur-xl transition-[box-shadow,border-color] duration-200'
+  'rounded-xl border border-white/[0.08] bg-white/[0.04] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)] backdrop-blur-xl transition-[box-shadow,border-color] duration-200'
 
 export function GenerateInput({
   onSubmit,
@@ -191,7 +191,7 @@ export function GenerateInput({
     <div className="flex w-full flex-col gap-7">
       <div className="flex flex-col gap-2">
         <div className="flex items-baseline justify-between gap-2">
-          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">
+          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-300">
             Health specialization
           </span>
           <span className="hidden text-[9px] font-medium uppercase tracking-wider text-slate-400 sm:inline">
@@ -208,8 +208,8 @@ export function GenerateInput({
                 onClick={() => setDomain((prev) => (prev === d.id ? '' : d.id))}
                 className={`rounded-md border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide shadow-[inset_0_1px_0_0_rgba(255,255,255,0.5)] backdrop-blur-md transition-all duration-200 active:scale-[0.97] ${
                   active
-                    ? 'border-emerald-400/45 bg-emerald-500/20 text-emerald-950 ring-1 ring-emerald-500/20 hover:border-[#D4AF37]'
-                    : 'border-white/50 bg-white/30 text-slate-600 hover:border-white/70 hover:bg-white/45'
+                    ? 'border-[#3b82f6] bg-[#3b82f6] text-white ring-1 ring-[#3b82f6]/20'
+                    : 'border-[#3b82f6] bg-blue-500/15 text-[#60a5fa] hover:border-[#60a5fa] hover:bg-blue-500/20'
                 }`}
               >
                 {d.label}
@@ -221,10 +221,10 @@ export function GenerateInput({
       {domain && (
   <div className="mt-2 flex items-center gap-2 animate-in fade-in slide-in-from-top-1 duration-300">
     <div className="relative flex h-2 w-2">
-      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#60a5fa] opacity-75"></span>
+      <span className="relative inline-flex rounded-full h-2 w-2 bg-[#3b82f6]"></span>
     </div>
-    <span className="text-[10px] font-semibold text-[#8A6A13] uppercase tracking-wider">
+    <span className="text-[10px] font-semibold text-slate-200 uppercase tracking-wider">
       {domain === 'malaria' && "Grounding: WHO Malaria Report 2025 (Sub-Saharan African Cohort)"}
       {domain === 'maternal' && "Grounding: World Bank Maternal Health Data (Nigeria/Ghana Focus)"}
       {domain === 'epidemic' && "Grounding: CDC Africa Infectious Disease Surveillance Patterns"}
@@ -233,13 +233,13 @@ export function GenerateInput({
 )}
 
       <div className="flex flex-col gap-2">
-        <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">
+        <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-300">
           Clinical specification
         </span>
         <div
           className={`relative overflow-hidden ${glassField} ${
             focused
-              ? 'border-emerald-300/60 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.75),0_0_0_3px_rgba(16,185,129,0.12)]'
+              ? 'border-[#60a5fa]/60 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12),0_0_0_3px_rgba(59,130,246,0.16)]'
               : ''
           }`}
         >
@@ -253,17 +253,17 @@ export function GenerateInput({
             disabled={isLoading}
             placeholder={placeholder || 'Describe cohort, variables, and outcomes…'}
             rows={3}
-            className="min-h-[112px] w-full resize-none bg-transparent px-3.5 pb-11 pt-3 text-sm leading-relaxed text-slate-800 placeholder:text-sm placeholder:leading-relaxed placeholder:text-slate-500/85 focus:outline-none"
+            className="min-h-[112px] w-full resize-none bg-transparent px-3.5 pb-11 pt-3 text-sm leading-relaxed text-slate-100 placeholder:text-sm placeholder:leading-relaxed placeholder:text-slate-400/85 focus:outline-none"
           />
-          <div className="absolute inset-x-0 bottom-0 flex items-center justify-between border-t border-white/40 bg-white/25 px-2.5 py-2 backdrop-blur-md">
-            <span className="font-mono text-[9px] tabular-nums tracking-wide text-slate-500">
+          <div className="absolute inset-x-0 bottom-0 flex items-center justify-between border-t border-white/[0.08] bg-white/[0.04] px-2.5 py-2 backdrop-blur-md">
+            <span className="font-mono text-[9px] tabular-nums tracking-wide text-slate-300">
               {prompt.length > 0 ? `${prompt.length} chars · ⌘↵` : '⌘↵ submit'}
             </span>
             <button
               type="button"
               onClick={submit}
               disabled={!prompt.trim() || isLoading}
-              className="flex items-center gap-1 rounded-md border border-emerald-500/25 bg-emerald-600/90 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-white shadow-[0_8px_18px_-10px_rgba(212,175,55,0.85),0_2px_8px_-4px_rgba(5,150,105,0.55)] backdrop-blur-sm transition-colors hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-30"
+              className="flex items-center gap-1 rounded-md border border-[#3b82f6]/25 bg-[#3b82f6] px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-white shadow-[0_8px_18px_-10px_rgba(59,130,246,0.85),0_2px_8px_-4px_rgba(37,99,235,0.55)] backdrop-blur-sm transition-colors hover:bg-[#2563eb] disabled:cursor-not-allowed disabled:opacity-30"
             >
               {isLoading ? (
                 <>
@@ -297,7 +297,7 @@ export function GenerateInput({
       </div>
 
       <div className="flex flex-col gap-2">
-        <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">
+        <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-300">
           Visual context
         </span>
         <div
@@ -313,8 +313,8 @@ export function GenerateInput({
           }}
           onDragLeave={() => setIsDragging(false)}
           onDrop={handleDrop}
-          className={`group relative overflow-hidden rounded-2xl border border-dashed border-white/10 bg-white/5 p-3 text-slate-400 shadow-[0_18px_40px_-28px_rgba(15,23,42,0.55)] backdrop-blur-md transition-all duration-300 hover:scale-[1.01] hover:border-emerald-300/50 hover:shadow-[0_0_0_1px_rgba(16,185,129,0.12),0_18px_44px_-26px_rgba(5,150,105,0.35)] ${
-            isDragging ? 'scale-[1.01] border-emerald-300/60 shadow-[0_0_0_1px_rgba(16,185,129,0.18),0_18px_44px_-26px_rgba(5,150,105,0.45)]' : ''
+          className={`group relative overflow-hidden rounded-2xl border border-dashed border-white/[0.08] bg-white/[0.04] p-3 text-slate-400 shadow-[0_18px_40px_-28px_rgba(0,0,0,0.55)] backdrop-blur-md transition-all duration-300 hover:scale-[1.01] hover:border-[#60a5fa]/50 hover:shadow-[0_0_0_1px_rgba(59,130,246,0.16),0_18px_44px_-26px_rgba(37,99,235,0.35)] ${
+            isDragging ? 'scale-[1.01] border-[#60a5fa]/60 shadow-[0_0_0_1px_rgba(59,130,246,0.18),0_18px_44px_-26px_rgba(37,99,235,0.45)]' : ''
           }`}
         >
           {isProcessingUpload && (
@@ -347,8 +347,8 @@ export function GenerateInput({
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-1.5">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.7)]" />
-                    <p className="truncate text-[11px] font-semibold text-slate-600">
+                    <span className="h-1.5 w-1.5 rounded-full bg-[#60a5fa] shadow-[0_0_10px_rgba(96,165,250,0.7)]" />
+                    <p className="truncate text-[11px] font-semibold text-slate-100">
                       {uploadedFile.name}
                     </p>
                   </div>
@@ -359,9 +359,9 @@ export function GenerateInput({
                     <motion.span
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-emerald-400/20 bg-emerald-500/10 px-2 py-0.5 text-[8px] font-bold uppercase tracking-[0.16em] text-emerald-700"
+                      className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-blue-400/20 bg-blue-500/10 px-2 py-0.5 text-[8px] font-bold uppercase tracking-[0.16em] text-slate-200"
                     >
-                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#60a5fa]" />
                       Visual Context Active
                     </motion.span>
                   )}
@@ -387,10 +387,10 @@ export function GenerateInput({
                 className="flex items-center gap-3"
               >
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/10">
-                  <UploadCloud className="h-5 w-5 text-slate-400 transition-colors group-hover:text-emerald-500" />
+                  <UploadCloud className="h-5 w-5 text-slate-400 transition-colors group-hover:text-[#60a5fa]" />
                 </div>
                 <div>
-                  <p className="text-[11px] font-semibold text-slate-500">
+                  <p className="text-[11px] font-semibold text-slate-300">
                     Upload Health Record / Map
                   </p>
                   <p className="mt-0.5 text-[9px] font-medium uppercase tracking-[0.14em] text-slate-400">
@@ -406,7 +406,7 @@ export function GenerateInput({
 
       <div className="grid grid-cols-2 gap-5">
         <div className="flex flex-col gap-2">
-          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">Volume</span>
+          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-300">Volume</span>
           <div className="flex gap-1">
             {ROW_PRESETS.map((p) => (
               <button
@@ -415,8 +415,8 @@ export function GenerateInput({
                 onClick={() => setRows(p.value)}
                 className={`flex-1 rounded-lg border py-1.5 text-[11px] font-semibold tabular-nums tracking-tight backdrop-blur-md transition-all duration-200 ${
                   rows === p.value
-                    ? 'border-emerald-400/40 bg-emerald-500/15 text-emerald-950 ring-1 ring-emerald-500/15'
-                    : 'border-white/50 bg-white/30 text-slate-600 hover:bg-white/45'
+                    ? 'border-[#3b82f6] bg-[#3b82f6] text-white ring-1 ring-[#3b82f6]/15'
+                    : 'border-[#3b82f6] bg-blue-500/15 text-[#60a5fa] hover:bg-blue-500/20'
                 }`}
               >
                 {p.label}
@@ -432,18 +432,18 @@ export function GenerateInput({
             onChange={(e) =>
               setRows(Math.min(2000, Math.max(10, Number(e.target.value))))
             }
-            className={`${glassField} w-full px-2.5 py-2 text-center text-xs font-medium tabular-nums text-slate-800 focus:border-emerald-300/50 focus:outline-none focus:ring-2 focus:ring-emerald-500/15`}
+            className={`${glassField} w-full px-2.5 py-2 text-center text-xs font-medium tabular-nums text-slate-100 focus:border-[#60a5fa]/50 focus:outline-none focus:ring-2 focus:ring-[#3b82f6]/15`}
           />
           <p className="text-[9px] font-medium uppercase tracking-wider text-slate-400">Max 2k rows · latency SLA</p>
         </div>
 
         <div className="flex flex-col gap-2">
-          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">Region</span>
+          <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-300">Region</span>
           <select
             value={country}
             aria-label="Country for regional grounding"
             onChange={(e) => setCountry(e.target.value)}
-            className={`${glassField} w-full cursor-pointer px-2.5 py-2 text-xs font-medium text-slate-800 focus:border-emerald-300/50 focus:outline-none focus:ring-2 focus:ring-emerald-500/15`}
+            className={`${glassField} w-full cursor-pointer px-2.5 py-2 text-xs font-medium text-slate-100 focus:border-[#60a5fa]/50 focus:outline-none focus:ring-2 focus:ring-[#3b82f6]/15`}
           >
             {COUNTRIES.map((c) => (
               <option key={c}>{c}</option>
@@ -453,12 +453,12 @@ export function GenerateInput({
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 border-t border-white/35 pt-4">
+      <div className="grid grid-cols-2 gap-x-3 gap-y-1.5 border-t border-white/[0.08] pt-4">
         {checks.map((c) => (
           <motion.div key={c.label} className="flex items-center gap-1.5" animate={{ opacity: 1 }}>
             <motion.div
               className="h-1 w-1 shrink-0 rounded-full"
-              animate={{ backgroundColor: c.ok ? '#059669' : '#94a3b8' }}
+              animate={{ backgroundColor: c.ok ? '#3b82f6' : '#94a3b8' }}
               transition={{ duration: 0.25 }}
             />
             <span className="text-[10px] font-medium text-slate-500">{c.label}</span>
@@ -470,7 +470,7 @@ export function GenerateInput({
         type="button"
         onClick={submit}
         disabled={!prompt.trim() || isLoading}
-        className="generate-gold-shimmer w-full rounded-xl border border-emerald-400/30 bg-gradient-to-br from-emerald-400 via-emerald-600 to-emerald-800 py-3 text-sm font-semibold tracking-tight text-white shadow-[0_14px_30px_-14px_rgba(212,175,55,0.95),0_8px_18px_-10px_rgba(5,150,105,0.58),inset_0_1px_0_0_rgba(255,255,255,0.28)] backdrop-blur-sm transition-all hover:from-emerald-400 hover:via-emerald-600 hover:to-emerald-900 hover:shadow-[0_18px_38px_-14px_rgba(212,175,55,0.95),0_10px_22px_-12px_rgba(5,150,105,0.6),inset_0_1px_0_0_rgba(255,255,255,0.3)] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-25 disabled:active:scale-100"
+        className="generate-gold-shimmer w-full rounded-xl border border-blue-400/30 bg-gradient-to-br from-[#60a5fa] via-[#3b82f6] to-[#1d4ed8] py-3 text-sm font-semibold tracking-tight text-white shadow-[0_14px_30px_-14px_rgba(59,130,246,0.95),0_8px_18px_-10px_rgba(37,99,235,0.58),inset_0_1px_0_0_rgba(255,255,255,0.28)] backdrop-blur-sm transition-all hover:from-[#60a5fa] hover:via-[#3b82f6] hover:to-[#1e40af] hover:shadow-[0_18px_38px_-14px_rgba(59,130,246,0.95),0_10px_22px_-12px_rgba(37,99,235,0.6),inset_0_1px_0_0_rgba(255,255,255,0.3)] active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-25 disabled:active:scale-100"
       >
         <AnimatePresence mode="wait">
           {isLoading ? (
