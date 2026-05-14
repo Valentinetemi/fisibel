@@ -11,7 +11,7 @@ import {
 const google = createGoogleGenerativeAI({
   apiKey: process.env.GEMMA_API_KEY!,
 })
-const model = google('gemma-4-27b-it')
+const model = google('gemma-4-26b-a4b-it')
 
 export function extractDocumentContext(context: UploadedVisualContext): string {
   return [
@@ -97,11 +97,7 @@ function parseUserPrompt(userPrompt: string): ParsedPrompt {
   }
 
   const columnKeywords: Record<string, string[]> = {
-    health: ['age', 'gender', 'diagnosis', 'symptoms', 'treatment', 'outcome', 'facility', 'lga', 'date_of_visit'],
-    finance: ['transaction_id', 'sender', 'receiver', 'amount', 'currency', 'channel', 'timestamp', 'status'],
-    agriculture: ['crop_type', 'farm_size_ha', 'state', 'lga', 'rainfall_mm', 'temperature_c', 'yield_kg', 'season'],
-    education: ['student_id', 'school', 'lga', 'state', 'gender', 'age', 'grade', 'subject', 'score', 'year'],
-    transport: ['vehicle_id', 'route', 'state', 'distance_km', 'fare_ngn', 'passenger_count', 'date', 'time'],
+    health: ['age', 'gender', 'diagnosis', 'symptoms', 'treatment', 'outcome', 'facility', 'lga', 'date_of_visit']
   }
 
   let domainHints: string[] = []
@@ -110,9 +106,7 @@ function parseUserPrompt(userPrompt: string): ParsedPrompt {
   for (const [domain, cols] of Object.entries(columnKeywords)) {
     if (
       lower.includes(domain) ||
-      (domain === 'health' && (lower.includes('malaria') || lower.includes('patient') || lower.includes('hospital'))) ||
-      (domain === 'finance' && (lower.includes('mobile money') || lower.includes('transaction') || lower.includes('bank'))) ||
-      (domain === 'agriculture' && (lower.includes('crop') || lower.includes('farm') || lower.includes('yield')))
+      (domain === 'health' && (lower.includes('malaria') || lower.includes('patient') || lower.includes('hospital')))
     ) {
       domainHints.push(domain)
       columns = cols
@@ -232,7 +226,12 @@ export function postProcessCSV(rawCSV: string): string {
       if (cats?.has(val.toLowerCase())) return cats.get(val.toLowerCase())!
       return val
     })
-    return normalized.map(v => (v.includes(',') ? `"${v}"` : v)).join(',')
+    return normalized.map(v => {
+      if (v.includes(',') || v.includes('"')) {
+        return `"${v.replace(/"/g, '""')}"`
+      }
+      return v
+    }).join(',')
   })
 
   const seen = new Set<string>()

@@ -80,7 +80,7 @@ export function GenerationStreamPanel({
             <div className="flex flex-col items-start gap-1 sm:items-end">
               <span className="flex items-center gap-1.5 text-[9px] font-medium uppercase tracking-[0.16em] text-slate-400">
                 <span className="h-1 w-1 rounded-full bg-[#60a5fa]" />
-                POWERED BY GEMMA 4 · LOCAL OLLAMA INSTANCE
+                POWERED BY GEMMA 4
               </span>
               {(pulse || showBoot) && (
                 <span className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
