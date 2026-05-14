@@ -1,4 +1,4 @@
-import { createOpenAI } from '@ai-sdk/openai'
+import { createGoogleGenerativeAI } from '@ai-sdk/google'
 import { generateText, streamText } from 'ai'
 import { fetchReferenceData } from './reference-data'
 import { extractDomain, extractCountry } from '@/lib/utils/extract'
