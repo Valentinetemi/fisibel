@@ -65,22 +65,28 @@ export function GenerationStreamPanel({
     >
       <div className="flex min-h-[26%] max-h-[34%] shrink-0 flex-[0.3] flex-col border-b border-white/50 border-t-2 border-t-[#D4AF37] shadow-[inset_0_2px_0_rgba(212,175,55,0.22),0_-6px_22px_-16px_rgba(212,175,55,0.9)]">
         <div className="flex min-h-0 flex-1 flex-col bg-[#FDFCF0]/50 px-5 py-4 backdrop-blur-xl">
-          <div className="mb-2 flex items-center justify-between gap-3">
+          <div className="mb-2 flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
             <div className="flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-full bg-[#D4AF37] shadow-[0_0_10px_rgba(212,175,55,0.9)]" />
               <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-[#334155]">
                 AI Insight
               </span>
             </div>
-            {(pulse || showBoot) && (
-              <span className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#D4AF37]/45" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#D4AF37] shadow-[0_0_10px_rgba(212,175,55,0.85)]" />
-                </span>
-                {showBoot ? 'Queued' : 'Reasoning'}
+            <div className="flex flex-col items-start gap-1 sm:items-end">
+              <span className="flex items-center gap-1.5 text-[9px] font-medium uppercase tracking-[0.16em] text-slate-400">
+                <span className="h-1 w-1 rounded-full bg-slate-300" />
+                POWERED BY GEMMA 4 · LOCAL OLLAMA INSTANCE
               </span>
-            )}
+              {(pulse || showBoot) && (
+                <span className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+                  <span className="relative flex h-1.5 w-1.5">
+                    <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#D4AF37]/45" />
+                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[#D4AF37] shadow-[0_0_10px_rgba(212,175,55,0.85)]" />
+                  </span>
+                  {showBoot ? 'Queued' : 'Reasoning'}
+                </span>
+              )}
+            </div>
           </div>
           <div className="min-h-0 flex-1 overflow-y-auto">
             <p className="text-[14px] font-normal leading-relaxed tracking-tight text-slate-600 antialiased sm:text-[15px] sm:leading-[1.65]">
