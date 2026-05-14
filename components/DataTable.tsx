@@ -47,7 +47,7 @@ export function DataTable({ data, headers }: DataTableProps) {
             <TableHeader>
               <TableRow className="border-b border-white/[0.08] bg-white/[0.04] hover:bg-white/[0.04]">
                 {headers.map((header) => (
-                  <TableHead key={header} className="font-semibold">
+                  <TableHead key={header} className="font-semibold text-white">
                     {header}
                   </TableHead>
                 ))}

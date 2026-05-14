@@ -276,7 +276,7 @@ export default function GeneratePage() {
                     Generate African health datasets
                   </h1>
                   <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-slate-300 sm:text-[15px]">
-                    PII-safe defaults, streaming CSV, and catalog hooks—built
+                    PII-safe defaults, streaming CSV, and catalog hooks - built
                     for ML teams shipping on real-world African cohorts.
                   </p>
                 </div>
@@ -294,7 +294,7 @@ export default function GeneratePage() {
                       <Sparkles className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#60a5fa]" />
                       <p className="text-[10px] font-medium leading-relaxed text-slate-300">
                         <span className="text-slate-200">Ops note:</span> name
-                        states, LGAs, or counties—not only the country—for
+                        states, LGAs, or counties not only the country for
                         distribution fidelity.
                       </p>
                     </div>
@@ -357,7 +357,7 @@ export default function GeneratePage() {
                       <Sparkles className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#60a5fa]" />
                       <p className="text-[10px] font-medium leading-relaxed text-slate-300">
                         <span className="text-slate-200">Ops note:</span>{" "}
-                        Regenerate while the stream stays hot—no session reset.
+                        Regenerate while the stream stays hot - no session reset.
                       </p>
                     </div>
                   </div>

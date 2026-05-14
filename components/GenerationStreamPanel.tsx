@@ -468,7 +468,7 @@ function DistributionMirror() {
         </div>
       </div>
 
-      <div className="min-h-0 flex-1 rounded-xl border border-white/[0.08] bg-white/[0.04] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl">
+      <div className="min-h-0 flex-1 rounded-xl border border-white/[0.08] bg-[#0f1f3d] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] backdrop-blur-xl">
         <svg
           viewBox="0 0 520 230"
           role="img"
