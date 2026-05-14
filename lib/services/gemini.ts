@@ -8,12 +8,10 @@ import {
   type UploadedVisualContext,
 } from '@/lib/utils/multimodal-context'
 
-const ollama = createOpenAI({
-  baseURL: 'http://localhost:11434/v1',
-  apiKey: 'ollama',
+const google = createGoogleGenerativeAI({
+  apiKey: process.env.GEMMA_API_KEY!,
 })
-
-const model = ollama('gemma4')
+const model = google('gemma-4-26b-a4b')
 
 export function extractDocumentContext(context: UploadedVisualContext): string {
   return [
