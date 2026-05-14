@@ -14,7 +14,7 @@ const FEATURES = [
   { icon: Microscope, label: 'Missing & duplicates', desc: 'Per-column missing value rates and duplicate row detection' },
   { icon: Fingerprint, label: 'PII detection', desc: 'Flags personally identifiable columns before training' },
   { icon: BarChart3, label: 'Model readiness score', desc: 'Composite 0–100 score with penalty breakdown' },
-  { icon: Sparkles, label: 'AI recommendations', desc: 'Gemini-powered fix suggestions tailored to your data' },
+  { icon: Sparkles, label: 'AI recommendations', desc: 'Gemma 4-powered fix suggestions tailored to your data' },
 ]
 
 const FORMAT_BADGES = ['CSV', 'JSON', 'XLSX', '≤ 50 MB']

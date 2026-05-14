@@ -28,7 +28,7 @@ export async function GET() {
     body: JSON.stringify({
       name: 'synthetic_datasets',
       displayName: 'Synthetic Datasets',
-      database: 'afrigen-synthetic.default',
+      database: 'fisibel-synthetic.default',
     }),
   })
   const schema = await schemaRes.json()

@@ -15,7 +15,7 @@ export async function fetchReferenceData(domain: string, country: string): Promi
       return await fetchWorldBankGeneralData(countryCode, country)
     }
   } catch (error) {
-    // If API fails, return empty, this makes Gemini generates.
+    // If API fails, return empty, this makes Gemma 4 generates.
     return ''
   }
 }
