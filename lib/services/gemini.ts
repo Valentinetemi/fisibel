@@ -1,13 +1,14 @@
-import { createGoogleGenerativeAI } from '@ai-sdk/google'
+import { createOpenAI } from '@ai-sdk/openai'
 import { generateText, streamText } from 'ai'
 import { fetchReferenceData } from './reference-data'
 import { extractDomain, extractCountry } from '@/lib/utils/extract'
 
-const google = createGoogleGenerativeAI({
-  apiKey: process.env.GEMINI_API_KEY!,
+const ollama = createOpenAI({
+  baseURL: 'http://localhost:11434/v1',
+  apiKey: 'ollama',
 })
 
-const model = google('gemini-flash-latest')
+const model = ollama('gemma4')
 
 // ─── African context knowledge base ───────────────────────────────────────────
 
