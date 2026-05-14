@@ -105,7 +105,7 @@ function ColumnCard({ column, index }: { column: any; index: number }) {
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.04 }}
-      className={`rounded-xl border bg-white/[0.04] transition-all duration-200 overflow-hidden backdrop-blur-md ${
+      className={`rounded-xl border bg-white/[0.08] transition-all duration-200 overflow-hidden backdrop-blur-md ${
         column.isPII ? 'border-red-200' : missingHigh ? 'border-amber-200' : 'border-gray-200'
       } hover:shadow-sm`}
     >
@@ -154,7 +154,7 @@ function ColumnCard({ column, index }: { column: any; index: number }) {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="overflow-hidden border-t border-gray-100"
+            className="overflow-hidden border-t border-gray-400"
           >
             <div className="px-4 py-3 flex flex-col gap-3">
               {/* Mini stat row */}
@@ -320,12 +320,12 @@ Columns: ${analysis.columns.map(c => `${c.name} (${c.dataType}, ${c.missingPerce
       </motion.div>
 
       {/* ── Score breakdown ── */}
-      <motion.div variants={item} className="rounded-2xl border border-white/[0.08] bg-white/[0.04] p-6 backdrop-blur-md">
+      <motion.div variants={item} className="rounded-2xl border border-white/[0.08] bg-white/[0.09] p-6 backdrop-blur-md">
         <div className="flex items-center gap-2 mb-5">
           <TrendingUp className="w-4 h-4 text-gray-400" />
-          <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400">Score Breakdown — Penalties</h3>
+          <h3 className="text-xs font-bold uppercase tracking-widest text-gray-200">Score Breakdown — Penalties</h3>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 text-gray-200">
           {[
             { label: 'Missing Values', value: analysis.scoreBreakdown.missingValuesPenalty },
             { label: 'Duplicates', value: analysis.scoreBreakdown.duplicateRowsPenalty },
@@ -368,8 +368,8 @@ Columns: ${analysis.columns.map(c => `${c.name} (${c.dataType}, ${c.missingPerce
       {/* ── Column breakdown ── */}
       <motion.div variants={item}>
         <div className="flex items-center justify-between mb-3">
-          <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400">
-            Column Breakdown <span className="ml-1 normal-case font-normal text-gray-300">({analysis.columns.length} columns)</span>
+          <h3 className="text-xs font-bold uppercase tracking-widest text-gray-100">
+            Column Breakdown <span className="ml-1 normal-case font-normal text-gray-100">({analysis.columns.length} columns)</span>
           </h3>
           <span className="text-[10px] text-gray-400">Click to expand</span>
         </div>
