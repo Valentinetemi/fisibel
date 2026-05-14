@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
+import type { UploadedVisualContext } from '@/lib/utils/multimodal-context'
 
 interface GenerationStreamPanelProps {
   rawStream: string
@@ -12,6 +13,7 @@ interface GenerationStreamPanelProps {
   streamKey: number
   /** Shown on generate until the first byte arrives from the stream */
   bootInsight?: string
+  visualContext?: UploadedVisualContext | null
 }
 
 function insightPulse(rawStream: string, csv: string, isStreaming: boolean): boolean {
@@ -34,6 +36,7 @@ export function GenerationStreamPanel({
   rowCount,
   streamKey,
   bootInsight = '',
+  visualContext = null,
 }: GenerationStreamPanelProps) {
   const datasetRef = useRef<HTMLDivElement>(null)
   const [showMirror, setShowMirror] = useState(false)
@@ -92,6 +95,11 @@ export function GenerationStreamPanel({
             <p className="text-[14px] font-normal leading-relaxed tracking-tight text-slate-600 antialiased sm:text-[15px] sm:leading-[1.65]">
               {reasoning.trim() ? (
                 reasoning.trim()
+              ) : showBoot && visualContext ? (
+                <VisualCognitionText
+                  detectedRegion={visualContext.detectedRegion}
+                  fileName={visualContext.fileName}
+                />
               ) : showBoot ? (
                 bootInsight
               ) : pulse ? (
@@ -162,6 +170,7 @@ export function GenerationStreamPanel({
           ref={datasetRef}
           className="h-full max-h-[min(48vh,420px)] overflow-y-auto px-5 py-3.5"
         >
+          {visualContext && <VisualProvenanceMilestone />}
           {showMirror ? (
             <DistributionMirror />
           ) : (
@@ -180,6 +189,57 @@ export function GenerationStreamPanel({
           )}
         </div>
       </div>
+    </motion.div>
+  )
+}
+
+function VisualCognitionText({
+  detectedRegion,
+  fileName,
+}: {
+  detectedRegion: string
+  fileName: string
+}) {
+  const text = useTypewriter(
+    [
+      'Analyzing uploaded document...',
+      `Extracting clinical parameters for ${detectedRegion}...`,
+      `Cross-referencing ${fileName} against epidemiological grounding rules...`,
+    ].join('\n'),
+    18
+  )
+
+  return <span className="whitespace-pre-line">{text}</span>
+}
+
+function useTypewriter(text: string, speed = 24) {
+  const [display, setDisplay] = useState('')
+
+  useEffect(() => {
+    setDisplay('')
+    let index = 0
+    const interval = window.setInterval(() => {
+      index += 1
+      setDisplay(text.slice(0, index))
+      if (index >= text.length) window.clearInterval(interval)
+    }, speed)
+
+    return () => window.clearInterval(interval)
+  }, [text, speed])
+
+  return display
+}
+
+function VisualProvenanceMilestone() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -4 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.28 }}
+      className="mb-3 flex items-center gap-2 rounded-xl border border-white/45 bg-white/30 px-3 py-2 font-[family-name:var(--font-jetbrains-mono)] text-[10px] text-slate-600 shadow-[0_12px_28px_-24px_rgba(15,23,42,0.45)] backdrop-blur-xl"
+    >
+      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.7)]" />
+      <span>[00.8s] Grounding: Visual Document Context (Uploaded)</span>
     </motion.div>
   )
 }

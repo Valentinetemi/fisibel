@@ -2,9 +2,16 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { FileImage, FileText, UploadCloud, X } from 'lucide-react'
+import {
+  buildMultimodalPrompt,
+  extractDocumentContext,
+  formatFileSize,
+  type UploadedVisualContext,
+} from '@/lib/utils/multimodal-context'
 
 interface GenerateInputProps {
-  onSubmit: (prompt: string) => Promise<void>
+  onSubmit: (prompt: string, visualContext?: UploadedVisualContext | null) => Promise<void>
   isLoading?: boolean
   initialPrompt?: string
   onPromptChange?: (prompt: string) => void
@@ -102,7 +109,13 @@ export function GenerateInput({
   const [country, setCountry] = useState('Nigeria')
   const [rows, setRows] = useState(1000)
   const [focused, setFocused] = useState(false)
+  const [isDragging, setIsDragging] = useState(false)
+  const [isProcessingUpload, setIsProcessingUpload] = useState(false)
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null)
+  const [uploadedContext, setUploadedContext] = useState<UploadedVisualContext | null>(null)
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const ref = useRef<HTMLTextAreaElement>(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
   const placeholder = useTypewriter(PLACEHOLDERS)
   const warning = getWarning(prompt)
 
@@ -120,7 +133,41 @@ export function GenerateInput({
 
   const submit = async () => {
     if (!prompt.trim() || isLoading) return
-    await onSubmit(buildPrompt(prompt, domain, country, rows))
+    const basePrompt = buildPrompt(prompt, domain, country, rows)
+    await onSubmit(buildMultimodalPrompt(basePrompt, uploadedContext), uploadedContext)
+  }
+
+  const processFile = (file?: File) => {
+    if (!file || isLoading) return
+    const allowedTypes = ['image/png', 'image/jpeg', 'application/pdf']
+    const allowedExtensions = /\.(png|jpe?g|pdf)$/i
+    if (!allowedTypes.includes(file.type) && !allowedExtensions.test(file.name)) return
+
+    if (previewUrl) URL.revokeObjectURL(previewUrl)
+    setIsProcessingUpload(true)
+    setUploadedFile(file)
+    setUploadedContext(null)
+    setPreviewUrl(file.type.startsWith('image/') ? URL.createObjectURL(file) : null)
+
+    window.setTimeout(() => {
+      setUploadedContext(extractDocumentContext(file))
+      setIsProcessingUpload(false)
+    }, 650)
+  }
+
+  const removeUpload = () => {
+    if (previewUrl) URL.revokeObjectURL(previewUrl)
+    setUploadedFile(null)
+    setUploadedContext(null)
+    setPreviewUrl(null)
+    setIsProcessingUpload(false)
+    if (fileInputRef.current) fileInputRef.current.value = ''
+  }
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault()
+    setIsDragging(false)
+    processFile(event.dataTransfer.files[0])
   }
 
   const onKey = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -133,6 +180,12 @@ export function GenerateInput({
     el.style.height = 'auto'
     el.style.height = Math.min(el.scrollHeight, 200) + 'px'
   }, [prompt])
+
+  useEffect(() => {
+    return () => {
+      if (previewUrl) URL.revokeObjectURL(previewUrl)
+    }
+  }, [previewUrl])
 
   return (
     <div className="flex w-full flex-col gap-7">
@@ -241,6 +294,114 @@ export function GenerateInput({
             </motion.p>
           )}
         </AnimatePresence>
+      </div>
+
+      <div className="flex flex-col gap-2">
+        <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-slate-500">
+          Visual context
+        </span>
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={() => fileInputRef.current?.click()}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter' || event.key === ' ') fileInputRef.current?.click()
+          }}
+          onDragOver={(event) => {
+            event.preventDefault()
+            setIsDragging(true)
+          }}
+          onDragLeave={() => setIsDragging(false)}
+          onDrop={handleDrop}
+          className={`group relative overflow-hidden rounded-2xl border border-dashed border-white/10 bg-white/5 p-3 text-slate-400 shadow-[0_18px_40px_-28px_rgba(15,23,42,0.55)] backdrop-blur-md transition-all duration-300 hover:scale-[1.01] hover:border-emerald-300/50 hover:shadow-[0_0_0_1px_rgba(16,185,129,0.12),0_18px_44px_-26px_rgba(5,150,105,0.35)] ${
+            isDragging ? 'scale-[1.01] border-emerald-300/60 shadow-[0_0_0_1px_rgba(16,185,129,0.18),0_18px_44px_-26px_rgba(5,150,105,0.45)]' : ''
+          }`}
+        >
+          {isProcessingUpload && (
+            <div className="absolute inset-0 bg-[linear-gradient(110deg,transparent,rgba(255,255,255,0.3),transparent)] animate-pulse" />
+          )}
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept=".png,.jpg,.jpeg,.pdf,image/png,image/jpeg,application/pdf"
+            className="hidden"
+            onChange={(event) => processFile(event.target.files?.[0])}
+          />
+
+          <AnimatePresence mode="wait">
+            {uploadedFile ? (
+              <motion.div
+                key="preview"
+                initial={{ opacity: 0, y: 6, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -4, scale: 0.98 }}
+                transition={{ duration: 0.22 }}
+                className="relative flex items-center gap-3"
+              >
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/20 bg-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]">
+                  {previewUrl ? (
+                    <img src={previewUrl} alt="" className="h-full w-full object-cover" />
+                  ) : (
+                    <FileText className="h-5 w-5 text-slate-400" />
+                  )}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-center gap-1.5">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.7)]" />
+                    <p className="truncate text-[11px] font-semibold text-slate-600">
+                      {uploadedFile.name}
+                    </p>
+                  </div>
+                  <p className="mt-0.5 text-[9px] font-medium uppercase tracking-[0.14em] text-slate-400">
+                    {formatFileSize(uploadedFile.size)} · {isProcessingUpload ? 'Processing visual context' : 'Upload indexed'}
+                  </p>
+                  {uploadedContext && (
+                    <motion.span
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="mt-2 inline-flex items-center gap-1.5 rounded-full border border-emerald-400/20 bg-emerald-500/10 px-2 py-0.5 text-[8px] font-bold uppercase tracking-[0.16em] text-emerald-700"
+                    >
+                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+                      Visual Context Active
+                    </motion.span>
+                  )}
+                </div>
+                <button
+                  type="button"
+                  onClick={(event) => {
+                    event.stopPropagation()
+                    removeUpload()
+                  }}
+                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-slate-400 transition-colors hover:border-red-200/60 hover:text-red-500"
+                  aria-label="Remove uploaded visual context"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              </motion.div>
+            ) : (
+              <motion.div
+                key="empty"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="flex items-center gap-3"
+              >
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/10">
+                  <UploadCloud className="h-5 w-5 text-slate-400 transition-colors group-hover:text-emerald-500" />
+                </div>
+                <div>
+                  <p className="text-[11px] font-semibold text-slate-500">
+                    Upload Health Record / Map
+                  </p>
+                  <p className="mt-0.5 text-[9px] font-medium uppercase tracking-[0.14em] text-slate-400">
+                    PNG, JPG, JPEG, PDF · drag or click
+                  </p>
+                </div>
+                <FileImage className="ml-auto hidden h-4 w-4 text-slate-300 sm:block" />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
 
       <div className="grid grid-cols-2 gap-5">

@@ -19,6 +19,7 @@ import {
   GENERATE_SESSION,
 } from "@/lib/utils/generate-session";
 import { buildGeneratedDatasetBasename } from "@/lib/utils/dataset-export-name";
+import type { UploadedVisualContext } from "@/lib/utils/multimodal-context";
 import { ChevronRight, Upload, CheckCircle, Sparkles } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "@/components/ui/toast";
@@ -35,6 +36,8 @@ export default function GeneratePage() {
   const [streamKey, setStreamKey] = useState(0);
   const [bootInsight, setBootInsight] = useState("");
   const [downloadBasename, setDownloadBasename] = useState("");
+  const [visualContext, setVisualContext] =
+    useState<UploadedVisualContext | null>(null);
   const hasStarted =
     isStreaming ||
     streamContent.length > 0 ||
@@ -81,9 +84,15 @@ export default function GeneratePage() {
     }
   };
 
-  const handleGenerate = async (prompt: string) => {
+  const handleGenerate = async (
+    prompt: string,
+    uploadedVisualContext?: UploadedVisualContext | null
+  ) => {
+    setVisualContext(uploadedVisualContext ?? null);
     setBootInsight(
-      "We have your request and are opening the model stream. The system is reasoning about your specification—columns, geography, and safety rules—before any row data is emitted. Reasoning will appear in this panel first; CSV will flow into Live Dataset shortly. Please wait."
+      uploadedVisualContext
+        ? `Analyzing uploaded document...\nExtracting clinical parameters for ${uploadedVisualContext.detectedRegion}...\nBinding visual document context to the synthetic data specification.`
+        : "We have your request and are opening the model stream. The system is reasoning about your specification—columns, geography, and safety rules—before any row data is emitted. Reasoning will appear in this panel first; CSV will flow into Live Dataset shortly. Please wait."
     );
     setStreamContent("");
     setGeneratedData([]);
@@ -224,6 +233,7 @@ export default function GeneratePage() {
         sessionStorage.setItem(GENERATE_SESSION.stream, errMsg);
       }
       clearPersistedGenerateResult();
+      setVisualContext(null);
     } finally {
       setIsStreaming(false);
       setHasCompleted(true);
@@ -371,6 +381,7 @@ export default function GeneratePage() {
                   rowCount={rowCountLive}
                   streamKey={streamKey}
                   bootInsight={bootInsight}
+                  visualContext={visualContext}
                 />
 
                 <AnimatePresence>

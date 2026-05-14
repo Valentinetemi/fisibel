@@ -2,6 +2,11 @@ import { createOpenAI } from '@ai-sdk/openai'
 import { generateText, streamText } from 'ai'
 import { fetchReferenceData } from './reference-data'
 import { extractDomain, extractCountry } from '@/lib/utils/extract'
+import {
+  analyzeVisualEntities as analyzeUploadedVisualEntities,
+  buildMultimodalPrompt as buildUploadedMultimodalPrompt,
+  type UploadedVisualContext,
+} from '@/lib/utils/multimodal-context'
 
 const ollama = createOpenAI({
   baseURL: 'http://localhost:11434/v1',
@@ -9,6 +14,26 @@ const ollama = createOpenAI({
 })
 
 const model = ollama('gemma4')
+
+export function extractDocumentContext(context: UploadedVisualContext): string {
+  return [
+    `File: ${context.fileName}`,
+    `Type: ${context.fileType}`,
+    `Detected Region: ${context.detectedRegion}`,
+    context.summary,
+  ].join('\n')
+}
+
+export function analyzeVisualEntities(context: UploadedVisualContext): string[] {
+  return analyzeUploadedVisualEntities(context)
+}
+
+export function buildMultimodalPrompt(
+  basePrompt: string,
+  context?: UploadedVisualContext | null
+): string {
+  return buildUploadedMultimodalPrompt(basePrompt, context)
+}
 
 // ─── African context knowledge base ───────────────────────────────────────────
 
