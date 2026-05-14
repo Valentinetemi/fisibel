@@ -56,7 +56,7 @@ Visual Context Metadata:
 - Size: ${formatFileSize(context.fileSize)}
 - Detected Region: ${context.detectedRegion}
 - Candidate Entities: ${entities}
-- OCR Status: placeholder pipeline active; use the metadata and filename signals as generation context until Gemma multimodal extraction is connected.`
+- OCR Status: placeholder pipeline active; use the metadata and filename signals as generation context until Gemma 4 multimodal extraction is connected.`
 }
 
 function inferFileType(fileName: string): string {
