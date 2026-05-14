@@ -380,6 +380,7 @@ export default function GeneratePage() {
                   isStreaming={isStreaming}
                   rowCount={rowCountLive}
                   streamKey={streamKey}
+                  userPrompt={userPrompt}
                   bootInsight={bootInsight}
                   visualContext={visualContext}
                 />
