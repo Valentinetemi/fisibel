@@ -18,7 +18,7 @@ interface QualityAnalysisResultsProps {
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
 function getScoreColor(score: number) {
-  if (score >= 80) return { text: 'text-emerald-600', stroke: '#10b981', bar: 'bg-emerald-500', light: 'bg-emerald-50', border: 'border-emerald-200', badge: 'bg-emerald-100 text-emerald-700' }
+  if (score >= 80) return { text: 'text-[#60a5fa]', stroke: '#3b82f6', bar: 'bg-[#3b82f6]', light: 'bg-blue-500/10', border: 'border-blue-400/30', badge: 'bg-blue-500/10 text-slate-200' }
   if (score >= 50) return { text: 'text-amber-600', stroke: '#f59e0b', bar: 'bg-amber-500', light: 'bg-amber-50', border: 'border-amber-200', badge: 'bg-amber-100 text-amber-700' }
   return { text: 'text-red-600', stroke: '#ef4444', bar: 'bg-red-500', light: 'bg-red-50', border: 'border-red-200', badge: 'bg-red-100 text-red-700' }
 }
@@ -72,7 +72,7 @@ function ScoreRing({ score }: { score: number }) {
 
 function PenaltyBar({ label, value, max = 25 }: { label: string; value: number; max?: number }) {
   const pct = Math.min(Math.abs(value) / max * 100, 100)
-  const col = Math.abs(value) > 15 ? 'bg-red-400' : Math.abs(value) > 5 ? 'bg-amber-400' : 'bg-emerald-400'
+  const col = Math.abs(value) > 15 ? 'bg-red-400' : Math.abs(value) > 5 ? 'bg-amber-400' : 'bg-[#60a5fa]'
 
   return (
     <div className="flex flex-col gap-1">
@@ -105,7 +105,7 @@ function ColumnCard({ column, index }: { column: any; index: number }) {
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.04 }}
-      className={`rounded-xl border bg-white transition-all duration-200 overflow-hidden ${
+      className={`rounded-xl border bg-white/[0.04] transition-all duration-200 overflow-hidden backdrop-blur-md ${
         column.isPII ? 'border-red-200' : missingHigh ? 'border-amber-200' : 'border-gray-200'
       } hover:shadow-sm`}
     >
@@ -117,7 +117,7 @@ function ColumnCard({ column, index }: { column: any; index: number }) {
       >
         <div className="flex items-center gap-3 min-w-0">
           <div className={`w-2 h-2 rounded-full shrink-0 ${
-            column.isPII ? 'bg-red-500' : missingHigh ? 'bg-amber-400' : 'bg-emerald-400'
+            column.isPII ? 'bg-red-500' : missingHigh ? 'bg-amber-400' : 'bg-[#60a5fa]'
           }`} />
           <div className="min-w-0">
             <span className="text-sm font-semibold text-gray-800 truncate block">{column.name}</span>
@@ -291,7 +291,7 @@ Columns: ${analysis.columns.map(c => `${c.name} (${c.dataType}, ${c.missingPerce
         </div>
 
         {/* Overview stats */}
-        <div className="lg:col-span-3 rounded-2xl border border-gray-200 bg-white p-6 flex flex-col justify-between gap-4">
+        <div className="lg:col-span-3 rounded-2xl border border-white/[0.08] bg-white/[0.04] p-6 flex flex-col justify-between gap-4 backdrop-blur-md">
           <div>
             <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400 mb-1">Overview</h3>
             <p className="text-sm text-gray-600 leading-relaxed">{analysis.summary}</p>
@@ -320,7 +320,7 @@ Columns: ${analysis.columns.map(c => `${c.name} (${c.dataType}, ${c.missingPerce
       </motion.div>
 
       {/* ── Score breakdown ── */}
-      <motion.div variants={item} className="rounded-2xl border border-gray-200 bg-white p-6">
+      <motion.div variants={item} className="rounded-2xl border border-white/[0.08] bg-white/[0.04] p-6 backdrop-blur-md">
         <div className="flex items-center gap-2 mb-5">
           <TrendingUp className="w-4 h-4 text-gray-400" />
           <h3 className="text-xs font-bold uppercase tracking-widest text-gray-400">Score Breakdown — Penalties</h3>
@@ -381,13 +381,13 @@ Columns: ${analysis.columns.map(c => `${c.name} (${c.dataType}, ${c.missingPerce
       </motion.div>
 
       {/* ── AI Recommendation ── */}
-      <motion.div variants={item} className="rounded-2xl border border-gray-200 bg-white overflow-hidden">
+      <motion.div variants={item} className="rounded-2xl border border-white/[0.08] bg-white/[0.04] overflow-hidden backdrop-blur-md">
         {/* Green left accent via gradient top border */}
-        <div className="h-1 bg-gradient-to-r from-green-500 to-emerald-400" />
+        <div className="h-1 bg-gradient-to-r from-[#3b82f6] to-[#60a5fa]" />
         <div className="p-6">
           <div className="flex items-center gap-2 mb-4">
-            <div className="w-7 h-7 rounded-lg bg-green-50 flex items-center justify-center">
-              <svg className="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-7 h-7 rounded-lg bg-blue-500/10 flex items-center justify-center">
+              <svg className="w-4 h-4 text-[#60a5fa]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
               </svg>
             </div>
@@ -417,7 +417,7 @@ Columns: ${analysis.columns.map(c => `${c.name} (${c.dataType}, ${c.missingPerce
           <Button
             onClick={onDownloadReport}
             variant="outline"
-            className="w-full h-11 rounded-xl border-gray-200 text-gray-600 hover:border-green-400 hover:text-green-700 hover:bg-green-50 transition-colors gap-2 font-semibold text-sm"
+            className="w-full h-11 rounded-xl border-gray-200 text-gray-600 hover:border-[#60a5fa] hover:text-[#60a5fa] hover:bg-blue-500/10 transition-colors gap-2 font-semibold text-sm"
           >
             <Download className="h-4 w-4" />
             Download Analysis Report

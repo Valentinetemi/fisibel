@@ -163,14 +163,14 @@
     pointer-events: none;
   }
 
-  .btn-green-glow {
+  .btn-blue-glow {
     @apply bg-[#3b82f6] hover:bg-[#2563eb] text-white font-bold;
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
   }
 
-  .btn-green-glow::before {
+  .btn-blue-glow::before {
     content: '';
     position: absolute;
     top: 0;
@@ -181,7 +181,7 @@
     transition: left 0.5s ease;
   }
 
-  .btn-green-glow:hover::before {
+  .btn-blue-glow:hover::before {
     left: 100%;
   }
 }

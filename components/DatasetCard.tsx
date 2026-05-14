@@ -34,7 +34,7 @@ function getCountryFlag(country: string): string {
 
 function getDomainColor(domain: string): string {
   const colorMap: Record<string, string> = {
-    Healthcare: 'bg-emerald-500/10 text-emerald-700 dark:text-emerald-400',
+    Healthcare: 'bg-blue-500/10 text-slate-200 dark:text-[#60a5fa]',
   }
   return colorMap[domain] || colorMap['General']
 }
@@ -95,11 +95,11 @@ export function DatasetCard({
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-xs font-medium text-muted-foreground">Fidelity Score</span>
-            <span className="text-xs font-bold text-green-600">{Math.round(fidelityScore)}%</span>
+            <span className="text-xs font-bold text-[#60a5fa]">{Math.round(fidelityScore)}%</span>
           </div>
           <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-800">
             <motion.div
-              className="h-full bg-gradient-to-r from-green-500 to-emerald-500"
+              className="h-full bg-gradient-to-r from-[#3b82f6] to-[#60a5fa]"
               initial={{ width: 0 }}
               animate={{ width: `${fidelityScore}%` }}
               transition={{ duration: 0.6, delay: 0.1 }}
@@ -138,7 +138,7 @@ export function DatasetCard({
             <Button
               size="sm"
               disabled={isDownloading}
-              className="w-full bg-green-600 hover:bg-green-700 text-xs sm:text-sm disabled:opacity-75"
+              className="w-full bg-[#3b82f6] hover:bg-[#2563eb] text-xs sm:text-sm disabled:opacity-75"
               onClick={() => onDownload?.(id)}
             >
               {isDownloading ? (

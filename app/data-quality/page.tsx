@@ -59,7 +59,7 @@ export default function DataQualityPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f8f9fa]">
+    <div className="min-h-screen bg-[radial-gradient(ellipse_at_20%_50%,#1a3a6b_0%,transparent_50%),radial-gradient(ellipse_at_80%_20%,#0d2d5e_0%,transparent_50%),radial-gradient(ellipse_at_60%_80%,#162952_0%,transparent_40%),#060d1f]">
       <Navbar />
 
       <main className="mx-auto w-full max-w-[1400px] px-4 py-8 sm:px-8 sm:py-12">
@@ -78,9 +78,9 @@ export default function DataQualityPage() {
               {/* Page header */}
               <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
                 <div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-50 border border-green-100 mb-3">
-                    <ShieldCheck className="w-3.5 h-3.5 text-green-600" />
-                    <span className="text-xs font-semibold text-green-700">Training Readiness Analysis</span>
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/20 mb-3">
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#60a5fa]" />
+                    <span className="text-xs font-semibold text-slate-200">Training Readiness Analysis</span>
                   </div>
                   <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">Data Quality</h1>
                   <p className="text-sm text-gray-500 mt-1.5 max-w-lg">
@@ -89,7 +89,7 @@ export default function DataQualityPage() {
                 </div>
                 <div className="flex items-center gap-1.5 shrink-0">
                   {FORMAT_BADGES.map(f => (
-                    <span key={f} className="px-2.5 py-1 rounded-full bg-white border border-gray-200 text-[11px] font-semibold text-gray-500">
+                    <span key={f} className="px-2.5 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-[11px] font-semibold text-slate-300">
                       {f}
                     </span>
                   ))}
@@ -101,7 +101,7 @@ export default function DataQualityPage() {
 
                 {/* Left: upload */}
                 <div className="flex flex-col gap-4">
-                  <div className="rounded-2xl border border-gray-200 bg-white shadow-sm p-6 sm:p-8 flex-1">
+                  <div className="rounded-2xl border border-white/[0.08] bg-white/[0.04] shadow-sm p-6 sm:p-8 flex-1 backdrop-blur-md">
                     <FileUpload onFileSelect={handleFileSelect} isLoading={loading} />
 
                     <AnimatePresence>
@@ -121,7 +121,7 @@ export default function DataQualityPage() {
                       <div className="mt-6 space-y-3">
                         <div className="flex items-center gap-2 mb-4">
                           <motion.div
-                            className="w-2 h-2 rounded-full bg-green-500"
+                            className="w-2 h-2 rounded-full bg-[#3b82f6]"
                             animate={{ scale: [1, 1.4, 1], opacity: [1, 0.5, 1] }}
                             transition={{ duration: 1.2, repeat: Infinity }}
                           />
@@ -138,7 +138,7 @@ export default function DataQualityPage() {
                 {/* Right: feature list + what we check */}
                 <div className="flex flex-col gap-4">
                   {/* Features */}
-                  <div className="rounded-2xl border border-gray-200 bg-white shadow-sm p-6 sm:p-8">
+                  <div className="rounded-2xl border border-white/[0.08] bg-white/[0.04] shadow-sm p-6 sm:p-8 backdrop-blur-md">
                     <h3 className="text-sm font-bold text-gray-800 uppercase tracking-widest mb-5">What we analyse</h3>
                     <div className="flex flex-col gap-4">
                       {FEATURES.map((f, i) => (
@@ -149,8 +149,8 @@ export default function DataQualityPage() {
                           transition={{ delay: i * 0.07 }}
                           className="flex items-start gap-4"
                         >
-                          <div className="w-9 h-9 rounded-xl bg-green-50 border border-green-100 flex items-center justify-center shrink-0">
-                            <f.icon className="w-4 h-4 text-green-600" />
+                          <div className="w-9 h-9 rounded-xl bg-blue-500/10 border border-blue-400/20 flex items-center justify-center shrink-0">
+                            <f.icon className="w-4 h-4 text-[#60a5fa]" />
                           </div>
                           <div>
                             <p className="text-sm font-semibold text-gray-800">{f.label}</p>
@@ -162,11 +162,11 @@ export default function DataQualityPage() {
                   </div>
 
                   {/* Tip card */}
-                  <div className="rounded-2xl border border-green-100 bg-green-50 p-5 flex items-start gap-3">
-                    <ArrowRight className="w-4 h-4 text-green-600 mt-0.5 shrink-0" />
-                    <p className="text-xs text-green-700 leading-relaxed">
+                  <div className="rounded-2xl border border-blue-400/20 bg-blue-500/10 p-5 flex items-start gap-3">
+                    <ArrowRight className="w-4 h-4 text-[#60a5fa] mt-0.5 shrink-0" />
+                    <p className="text-xs text-slate-200 leading-relaxed">
                       <span className="font-bold">Tip:</span> Generate a clean dataset first on the{' '}
-                      <a href="/generate" className="underline font-semibold hover:text-green-900">Generate page</a>,
+                      <a href="/generate" className="underline font-semibold hover:text-white">Generate page</a>,
                       then upload it here to validate before training your model.
                     </p>
                   </div>
@@ -192,7 +192,7 @@ export default function DataQualityPage() {
                 </div>
                 <button
                   onClick={() => setAnalysis(null)}
-                  className="text-xs font-semibold text-gray-500 hover:text-gray-800 px-4 py-2 rounded-xl border border-gray-200 bg-white hover:border-gray-300 transition-colors"
+                  className="text-xs font-semibold text-slate-300 hover:text-white px-4 py-2 rounded-xl border border-white/[0.08] bg-white/[0.04] hover:border-[#3b82f6] transition-colors"
                 >
                   ← Analyse another file
                 </button>

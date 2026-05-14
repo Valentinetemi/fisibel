@@ -76,8 +76,8 @@ export function FileUpload({ onFileSelect, isLoading = false }: FileUploadProps)
       <motion.div
         className={`relative rounded-lg border-2 border-dashed transition-all ${
           dragActive
-            ? 'border-green-500 bg-green-50 dark:bg-green-950/30'
-            : 'border-gray-300 dark:border-gray-700 hover:border-green-400 bg-white dark:bg-slate-950'
+            ? 'border-[#3b82f6] bg-blue-500/10 dark:bg-blue-950/30'
+            : 'border-gray-300 dark:border-gray-700 hover:border-[#60a5fa] bg-white/[0.04] dark:bg-slate-950'
         } ${isLoading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
         onDragEnter={handleDrag}
         onDragLeave={handleDrag}
@@ -109,7 +109,7 @@ export function FileUpload({ onFileSelect, isLoading = false }: FileUploadProps)
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
               >
-                <FileText className="mx-auto mb-3 h-8 w-8 text-green-600 dark:text-green-400" />
+                <FileText className="mx-auto mb-3 h-8 w-8 text-[#60a5fa] dark:text-[#60a5fa]" />
                 <p className="text-sm font-semibold text-gray-900 dark:text-white">
                   {fileName}
                 </p>
