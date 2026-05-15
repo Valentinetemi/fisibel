@@ -112,7 +112,7 @@ export default function GeneratePage() {
       const response = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt }),
+        body: JSON.stringify({ prompt, visualContext: uploadedVisualContext }),
       });
       if (!response.ok) throw new Error("Generation failed");
 

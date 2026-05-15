@@ -8,7 +8,7 @@ import {
   extractDocumentContext,
   formatFileSize,
   type UploadedVisualContext,
-} from '@/lib/utils/multimodal-context'
+} from '@/lib/utils/multimodal-context' 
 
 interface GenerateInputProps {
   onSubmit: (prompt: string, visualContext?: UploadedVisualContext | null) => Promise<void>
