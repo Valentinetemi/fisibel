@@ -4,6 +4,8 @@ export interface UploadedVisualContext {
   fileType: string
   detectedRegion: string
   summary: string
+  base64Data?: string 
+  mimeType?: string 
 }
 
 export function formatFileSize(bytes: number): string {
