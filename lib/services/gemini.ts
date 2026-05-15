@@ -342,32 +342,52 @@ Return ONLY valid JSON, nothing else:
 
 // - Single exported function - merges structured prompt and reference data -
 
-export async function streamSyntheticDataGeneration(userPrompt: string) {
+export async function streamSyntheticDataGeneration(
+  userPrompt: string,
+  visualContext?: UploadedVisualContext | null
+) {
   const parsed = parseUserPrompt(userPrompt)
 
-  // Try to fetch real World Bank / WHO reference data
   let referenceData: string | null = null
   let domain = ''
   let country = ''
   try {
-    const domain = extractDomain(userPrompt)
-    const country = extractCountry(userPrompt)
-
+    domain = extractDomain(userPrompt)
+    country = extractCountry(userPrompt)
     referenceData = await Promise.race([
       fetchReferenceData(domain, country),
       new Promise<string>(resolve => setTimeout(() => resolve(''), 3000))
     ])
-  }
-  catch (err)
-  {
+  } catch (err) {
     console.error(err)
   }
+
   const systemPrompt = buildSystemPrompt(parsed, referenceData)
+
+  // Build message content
+  const messageContent: any[] = []
+
+  // If image uploaded, add it first for Gemma 4 vision
+  if (visualContext?.base64Data && visualContext?.mimeType?.startsWith('image/')) {
+    messageContent.push({
+      type: 'image',
+      image: `data:${visualContext.mimeType};base64,${visualContext.base64Data}`,
+    })
+    messageContent.push({
+      type: 'text',
+      text: `First analyze this health document/image carefully. Extract any visible statistics, patient data patterns, disease prevalence rates, geographic information, or clinical indicators. Then use those extracted insights as ground truth to generate a synthetic CSV dataset for: ${userPrompt}`,
+    })
+  } else {
+    messageContent.push({
+      type: 'text',
+      text: `Generate a synthetic CSV dataset for: ${userPrompt}`,
+    })
+  }
 
   const stream = streamText({
     model,
     system: systemPrompt,
-    prompt: `Generate a synthetic CSV dataset for: ${userPrompt}`,
+    messages: [{ role: 'user', content: messageContent }],
     temperature: 0.7,
   })
 
