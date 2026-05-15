@@ -142,52 +142,60 @@ export function GenerateInput({
     const allowedTypes = ['image/png', 'image/jpeg', 'application/pdf']
     const allowedExtensions = /\.(png|jpe?g|pdf)$/i
     if (!allowedTypes.includes(file.type) && !allowedExtensions.test(file.name)) return
-
+  
     if (previewUrl) URL.revokeObjectURL(previewUrl)
     setIsProcessingUpload(true)
     setUploadedFile(file)
     setUploadedContext(null)
     setPreviewUrl(file.type.startsWith('image/') ? URL.createObjectURL(file) : null)
-
-    window.setTimeout(() => {
-      setUploadedContext(extractDocumentContext(file))
+  
+    // Convert to base64
+    const reader = new FileReader()
+    reader.onload = () => {
+      const base64 = (reader.result as string).split(',')[1]
+      setUploadedContext({
+        ...extractDocumentContext(file),
+        base64Data: base64,
+        mimeType: file.type,
+      })
       setIsProcessingUpload(false)
-    }, 650)
-  }
-
-  const removeUpload = () => {
-    if (previewUrl) URL.revokeObjectURL(previewUrl)
-    setUploadedFile(null)
-    setUploadedContext(null)
-    setPreviewUrl(null)
-    setIsProcessingUpload(false)
-    if (fileInputRef.current) fileInputRef.current.value = ''
-  }
-
-  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault()
-    setIsDragging(false)
-    processFile(event.dataTransfer.files[0])
-  }
-
-  const onKey = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') submit()
-  }
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    el.style.height = 'auto'
-    el.style.height = Math.min(el.scrollHeight, 200) + 'px'
-  }, [prompt])
-
-  useEffect(() => {
-    return () => {
-      if (previewUrl) URL.revokeObjectURL(previewUrl)
     }
-  }, [previewUrl])
+    reader.readAsDataURL(file)
+  }
 
-  return (
+    const removeUpload = () => {
+      if (previewUrl) URL.revokeObjectURL(previewUrl)
+      setUploadedFile(null)
+      setUploadedContext(null)
+      setPreviewUrl(null)
+      setIsProcessingUpload(false)
+      if (fileInputRef.current) fileInputRef.current.value = ''
+    }
+
+    const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+      event.preventDefault()
+      setIsDragging(false)
+      processFile(event.dataTransfer.files[0])
+    }
+
+    const onKey = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') submit()
+    }
+
+    useEffect(() => {
+      const el = ref.current
+      if (!el) return
+      el.style.height = 'auto'
+      el.style.height = Math.min(el.scrollHeight, 200) + 'px'
+    }, [prompt])
+
+    useEffect(() => {
+      return () => {
+        if (previewUrl) URL.revokeObjectURL(previewUrl)
+      }
+    }, [previewUrl])
+
+    return (
     <div className="flex w-full flex-col gap-7">
       <div className="flex flex-col gap-2">
         <div className="flex items-baseline justify-between gap-2">
@@ -465,7 +473,7 @@ export function GenerateInput({
           </motion.div>
         ))}
       </div>
-        
+
       <button
         type="button"
         onClick={submit}
