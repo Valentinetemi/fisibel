@@ -105,9 +105,9 @@ function ColumnCard({ column, index }: { column: any; index: number }) {
       initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.04 }}
-      className={`rounded-xl border bg-white/[0.08] transition-all duration-200 overflow-hidden backdrop-blur-md ${
-        column.isPII ? 'border-red-200' : missingHigh ? 'border-amber-200' : 'border-gray-200'
-      } hover:shadow-sm`}
+      className={`rounded-xl border bg-white/[0.12] transition-all duration-200 overflow-hidden backdrop-blur-md ${
+        column.isPII ? 'border-red-500/50' : missingHigh ? 'border-amber-500/50' : 'border-blue-500/30'
+      } hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:bg-white/[0.16]`}
     >
       {/* Header row */}
       <button
@@ -116,12 +116,12 @@ function ColumnCard({ column, index }: { column: any; index: number }) {
         className="w-full flex items-center justify-between px-4 py-3 text-left"
       >
         <div className="flex items-center gap-3 min-w-0">
-          <div className={`w-2 h-2 rounded-full shrink-0 ${
-            column.isPII ? 'bg-red-500' : missingHigh ? 'bg-amber-400' : 'bg-[#60a5fa]'
+          <div className={`w-2.5 h-2.5 rounded-full shrink-0 shadow-[0_0_8px_currentColor] ${
+            column.isPII ? 'bg-red-500 text-red-500' : missingHigh ? 'bg-amber-400 text-amber-400' : 'bg-[#60a5fa] text-[#60a5fa]'
           }`} />
           <div className="min-w-0">
-            <span className="text-sm font-semibold text-gray-800 truncate block">{column.name}</span>
-            <span className="text-[11px] text-gray-400">
+            <span className="text-sm font-semibold text-white truncate block">{column.name}</span>
+            <span className="text-[11px] text-slate-300/80">
               {column.dataType.charAt(0).toUpperCase() + column.dataType.slice(1)} · {column.uniqueCount} unique
             </span>
           </div>
@@ -129,17 +129,17 @@ function ColumnCard({ column, index }: { column: any; index: number }) {
 
         <div className="flex items-center gap-2 shrink-0 ml-3">
           {column.isPII && (
-            <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-red-100 text-red-700 text-[10px] font-bold">
+            <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-red-500/20 text-red-400 text-[10px] font-bold border border-red-500/30">
               <AlertOctagon className="w-2.5 h-2.5" /> PII
             </span>
           )}
           {missingHigh && !column.isPII && (
-            <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-700 text-[10px] font-bold">
+            <span className="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 text-[10px] font-bold border border-amber-500/30">
               {column.missingPercentage}% missing
             </span>
           )}
           <motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.2 }}>
-            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
           </motion.div>
@@ -154,9 +154,9 @@ function ColumnCard({ column, index }: { column: any; index: number }) {
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="overflow-hidden border-t border-gray-400"
+            className="overflow-hidden border-t border-white/[0.08]"
           >
-            <div className="px-4 py-3 flex flex-col gap-3">
+            <div className="px-4 py-3 flex flex-col gap-3 bg-black/20">
               {/* Mini stat row */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                 {[
@@ -167,9 +167,9 @@ function ColumnCard({ column, index }: { column: any; index: number }) {
                     { label: 'Std Dev', value: column.stdDev },
                   ] : []),
                 ].map(stat => (
-                  <div key={stat.label} className="bg-gray-50 rounded-lg px-3 py-2">
-                    <p className="text-[10px] text-gray-400 uppercase tracking-wide">{stat.label}</p>
-                    <p className="text-sm font-bold text-gray-700 mt-0.5 truncate">{stat.value}</p>
+                  <div key={stat.label} className="bg-white/[0.04] border border-white/[0.08] rounded-lg px-3 py-2">
+                    <p className="text-[10px] text-slate-400 uppercase tracking-wide">{stat.label}</p>
+                    <p className="text-sm font-bold text-slate-100 mt-0.5 truncate">{stat.value}</p>
                   </div>
                 ))}
               </div>
@@ -177,8 +177,8 @@ function ColumnCard({ column, index }: { column: any; index: number }) {
               {/* Sample values */}
               {column.sampleValues?.length > 0 && (
                 <div>
-                  <p className="text-[10px] text-gray-400 uppercase tracking-wide mb-1.5">Sample Values</p>
-                  <div className="font-mono text-xs bg-gray-50 border border-gray-100 rounded-lg px-3 py-2 text-gray-600 truncate">
+                  <p className="text-[10px] text-slate-400 uppercase tracking-wide mb-1.5">Sample Values</p>
+                  <div className="font-mono text-xs bg-black/30 border border-white/[0.08] rounded-lg px-3 py-2 text-slate-300 truncate">
                     {column.sampleValues.join(' · ')}
                   </div>
                 </div>
