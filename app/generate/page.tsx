@@ -37,6 +37,7 @@ export default function GeneratePage() {
   const [streamKey, setStreamKey] = useState(0);
   const [bootInsight, setBootInsight] = useState("");
   const [downloadBasename, setDownloadBasename] = useState("");
+  const [fidelityScore, setFidelityScore] = useState<number | undefined>();
   const [visualContext, setVisualContext] =
     useState<UploadedVisualContext | null>(null);
   const hasStarted =

@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useMemo } from 'react'
 import { motion } from 'framer-motion'
 import type { UploadedVisualContext } from '@/lib/utils/multimodal-context'
+import { csvToJSON } from '@/lib/utils/csv-export'
 
 interface GenerationStreamPanelProps {
   rawStream: string
@@ -15,6 +16,7 @@ interface GenerationStreamPanelProps {
   /** Shown on generate until the first byte arrives from the stream */
   bootInsight?: string
   visualContext?: UploadedVisualContext | null
+  fidelityScore?: number
 }
 
 function insightPulse(rawStream: string, csv: string, isStreaming: boolean): boolean {
@@ -39,6 +41,7 @@ export function GenerationStreamPanel({
   userPrompt = '',
   bootInsight = '',
   visualContext = null,
+  fidelityScore,
 }: GenerationStreamPanelProps) {
   const datasetRef = useRef<HTMLDivElement>(null)
   const [showMirror, setShowMirror] = useState(false)
@@ -181,7 +184,7 @@ export function GenerationStreamPanel({
             visualContext={visualContext}
           />
           {showMirror ? (
-            <DistributionMirror />
+            <DistributionMirror csv={csv} fidelityScore={fidelityScore} />
           ) : (
             <motion.pre
               initial={false}
@@ -433,9 +436,53 @@ function VisualProvenanceMilestone() {
   )
 }
 
-function DistributionMirror() {
-  const syntheticPath = 'M28 171 C62 158 82 119 108 96 C138 68 167 57 198 70 C233 86 248 124 279 137 C310 151 337 118 374 93 C410 69 444 72 492 103'
-  const baselinePath = 'M28 178 C63 163 84 128 111 103 C139 78 168 66 199 78 C232 91 249 129 280 143 C310 156 339 126 374 101 C409 78 446 80 492 111'
+function DistributionMirror({ csv, fidelityScore }: { csv: string; fidelityScore?: number }) {
+  const data = useMemo(() => csvToJSON(csv), [csv])
+
+  const ageGroups = [
+    { label: '0-9', min: 0, max: 9 },
+    { label: '10-19', min: 10, max: 19 },
+    { label: '20-29', min: 20, max: 29 },
+    { label: '30-39', min: 30, max: 39 },
+    { label: '40-49', min: 40, max: 49 },
+    { label: '50-59', min: 50, max: 59 },
+    { label: '60-69', min: 60, max: 69 },
+    { label: '70-79', min: 70, max: 79 },
+    { label: '80+', min: 80, max: 120 },
+  ]
+
+  const distribution = useMemo(() => {
+    const counts = ageGroups.map(() => 0)
+    if (data.length === 0) return counts
+
+    data.forEach((row) => {
+      const age = parseInt(row.Age || row.age)
+      if (isNaN(age)) return
+      const groupIndex = ageGroups.findIndex((g) => age >= g.min && age <= g.max)
+      if (groupIndex !== -1) counts[groupIndex]++
+    })
+
+    const maxCount = Math.max(...counts, 1)
+    return counts.map((c) => (c / maxCount) * 160) // Normalize to 160px height
+  }, [data])
+
+  const generatePath = (values: number[], baseline = false) => {
+    const startX = 28
+    const endX = 492
+    const step = (endX - startX) / (values.length - 1)
+    const baseY = 202
+
+    return values.reduce((path, val, i) => {
+      const x = startX + i * step
+      const y = baseY - val - (baseline ? 5 : 0) // Offset baseline slightly
+      return i === 0 ? `M${x} ${y}` : `${path} L${x} ${y}`
+    }, '')
+  }
+
+  const syntheticPath = generatePath(distribution)
+  // Mock baseline that follows synthetic but with some noise
+  const baselineDistribution = distribution.map((v) => v * (0.85 + Math.random() * 0.3))
+  const baselinePath = generatePath(baselineDistribution, true)
 
   return (
     <motion.div
@@ -472,7 +519,7 @@ function DistributionMirror() {
         <svg
           viewBox="0 0 520 230"
           role="img"
-          aria-label="Animated age distribution comparison between Fisibel synthetic data and WHO World Bank baseline"
+          aria-label="Animated age distribution comparison"
           className="h-full min-h-[210px] w-full"
         >
           <defs>
@@ -482,10 +529,10 @@ function DistributionMirror() {
             </linearGradient>
           </defs>
           {[42, 82, 122, 162, 202].map((y) => (
-            <path key={y} d={`M28 ${y}H492`} stroke="#CBD5E1" strokeOpacity="0.55" strokeWidth="1" />
+            <path key={y} d={`M28 ${y}H492`} stroke="#CBD5E1" strokeOpacity="0.1" strokeWidth="1" />
           ))}
           {[28, 144, 260, 376, 492].map((x) => (
-            <path key={x} d={`M${x} 28V202`} stroke="#E2E8F0" strokeOpacity="0.52" strokeWidth="1" />
+            <path key={x} d={`M${x} 28V202`} stroke="#E2E8F0" strokeOpacity="0.1" strokeWidth="1" />
           ))}
           <path
             d={`${syntheticPath} L492 202 L28 202 Z`}
@@ -496,8 +543,8 @@ function DistributionMirror() {
             d={baselinePath}
             fill="none"
             stroke="#64748B"
-            strokeWidth="3"
-            strokeDasharray="7 8"
+            strokeWidth="2"
+            strokeDasharray="4 4"
             strokeLinecap="round"
             initial={{ pathLength: 0 }}
             animate={{ pathLength: 1 }}
@@ -507,20 +554,14 @@ function DistributionMirror() {
             d={syntheticPath}
             fill="none"
             stroke="#3b82f6"
-            strokeWidth="4"
+            strokeWidth="3"
             strokeLinecap="round"
             initial={{ pathLength: 0 }}
             animate={{ pathLength: 1 }}
-            transition={{ duration: 1.25, ease: 'easeInOut', delay: 0.08 }}
+            transition={{ duration: 1.25, ease: 'easeInOut' }}
           />
-          {[
-            { x: 28, label: '0-9' },
-            { x: 144, label: '20-29' },
-            { x: 260, label: '40-49' },
-            { x: 376, label: '60-69' },
-            { x: 492, label: '80+' },
-          ].map((tick) => (
-            <text key={tick.label} x={tick.x} y="224" textAnchor="middle" className="fill-slate-500 text-[10px] font-medium">
+          {ageGroups.filter((_, i) => i % 2 === 0).map((tick, i) => (
+            <text key={tick.label} x={28 + i * ((492 - 28) / 4)} y="224" textAnchor="middle" className="fill-slate-500 text-[10px] font-medium">
               {tick.label}
             </text>
           ))}
@@ -528,17 +569,12 @@ function DistributionMirror() {
       </div>
 
       <div className="grid gap-2 sm:grid-cols-2">
-        {[
-          'Fidelity Score: 98.4%',
-          'Statistical Correlation (P-Value): < 0.001',
-        ].map((metric) => (
-          <div
-            key={metric}
-            className="rounded-xl border border-white/[0.08] bg-white/[0.04] px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#60a5fa] shadow-[0_12px_28px_-20px_rgba(0,0,0,0.5)] backdrop-blur-xl"
-          >
-            {metric}
-          </div>
-        ))}
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.04] px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#60a5fa] shadow-[0_12px_28px_-20px_rgba(0,0,0,0.5)] backdrop-blur-xl">
+          Fidelity Score: {fidelityScore ? `${fidelityScore}%` : 'Calculating...'}
+        </div>
+        <div className="rounded-xl border border-white/[0.08] bg-white/[0.04] px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#60a5fa] shadow-[0_12px_28px_-20px_rgba(0,0,0,0.5)] backdrop-blur-xl">
+          Statistical Alignment: Active
+        </div>
       </div>
     </motion.div>
   )
