@@ -204,10 +204,12 @@ export default function GeneratePage() {
           toast({
             title: "Dataset Generated Successfully! 🎉",
             description: `Registered in OpenMetadata with a fidelity score of ${score}%.`,
+            className: "bg-[#1a2e5a] border-blue-500/50 text-white shadow-[0_0_20px_rgba(59,130,246,0.15)]",
             action: (
               <ToastAction
                 altText="View in Catalog"
                 onClick={() => router.push("/catalog")}
+                className="bg-blue-600 text-white hover:bg-blue-500 border-none px-4"
               >
                 View Catalog
               </ToastAction>

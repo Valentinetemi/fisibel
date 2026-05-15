@@ -263,7 +263,7 @@ export function GenerateInput({
               type="button"
               onClick={submit}
               disabled={!prompt.trim() || isLoading}
-              className="flex items-center gap-1 rounded-md border border-[#3b82f6]/25 bg-[#3b82f6] px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-white shadow-[0_8px_18px_-10px_rgba(59,130,246,0.85),0_2px_8px_-4px_rgba(37,99,235,0.55)] backdrop-blur-sm transition-colors hover:bg-[#2563eb] disabled:cursor-not-allowed disabled:opacity-30"
+              className="flex items-center gap-1 rounded-md border border-[#3b82f6]/25 bg-[#3b82f6] px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-white shadow-[0_8px_18px_-10px_rgba(59,130,246,0.85),0_2px_8px_-4px_rgba(37,99,235,0.55)] backdrop-blur-sm transition-colors hover:bg-gray-200 disabled:cursor-not-allowed disabled:opacity-30"
             >
               {isLoading ? (
                 <>
@@ -465,7 +465,7 @@ export function GenerateInput({
           </motion.div>
         ))}
       </div>
-
+        
       <button
         type="button"
         onClick={submit}
