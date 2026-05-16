@@ -132,8 +132,8 @@ export default function CatalogPage() {
         >
           {/* Hero Section */}
           <motion.div variants={itemVariants} className="space-y-2">
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold">African Data Infrastructure</h1>
-            <p className="text-sm sm:text-base lg:text-lg text-[#e2e8f0] max-w-2xl">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white">African Data Infrastructure</h1>
+            <p className="text-sm sm:text-base lg:text-lg text-[#cbd5e1] max-w-2xl">
               Browse and download pre-generated synthetic African datasets. All datasets include realistic country-specific data, demographics, and metrics.
             </p>
           </motion.div>
@@ -185,33 +185,33 @@ export default function CatalogPage() {
           </motion.div>
 
           {/* Info Section */}
-          <motion.div variants={itemVariants} className="rounded-lg border border-border bg-card/90 p-4 sm:p-6">
-            <h3 className="text-base sm:text-lg font-semibold mb-3 text-[#1e3a5f]">About These Datasets</h3>
-            <ul className="space-y-2 text-xs sm:text-sm text-[#1e2945]">
+          <motion.div variants={itemVariants} className="rounded-lg border border-white/[0.08] bg-white/[0.04] p-4 sm:p-6">
+            <h3 className="text-base sm:text-lg font-semibold mb-3 text-white">About These Datasets</h3>
+            <ul className="space-y-2 text-xs sm:text-sm text-[#cbd5e1]">
               <li className="flex gap-2">
-                <span className="text-primary">→</span>
+                <span className="text-[#3b82f6]">→</span>
                 <span>
-                  <strong>Authentic:</strong> Generated with real African place names,
+                  <strong className="text-white">Authentic:</strong> Generated with real African place names,
                   demographics, and domain-specific metrics
                 </span>
               </li>
               <li className="flex gap-2">
-                <span className="text-primary">→</span>
+                <span className="text-[#3b82f6]">→</span>
                 <span>
-                  <strong>Domain-Specific:</strong> Healthcare
+                  <strong className="text-white">Domain-Specific:</strong> Healthcare
                 </span>
               </li>
               <li className="flex gap-2">
-                <span className="text-primary">→</span>
+                <span className="text-[#3b82f6]">→</span>
                 <span>
-                  <strong>Validated:</strong> Use our Data Quality analyzer to check
+                  <strong className="text-white">Validated:</strong> Use our Data Quality analyzer to check
                   completeness and model readiness
                 </span>
               </li>
               <li className="flex gap-2">
-                <span className="text-primary">→</span>
+                <span className="text-[#3b82f6]">→</span>
                 <span>
-                  <strong>Ready to Use:</strong> Download as CSV or JSON and use
+                  <strong className="text-white">Ready to Use:</strong> Download as CSV or JSON and use
                   immediately for training
                 </span>
               </li>

@@ -34,9 +34,9 @@ function getCountryFlag(country: string): string {
 
 function getDomainColor(domain: string): string {
   const colorMap: Record<string, string> = {
-    Healthcare: 'bg-blue-500/10 text-slate-200 dark:text-[#60a5fa]',
+    Healthcare: 'bg-[#3b82f6] text-white',
   }
-  return colorMap[domain] || colorMap['General']
+  return colorMap[domain] || 'bg-slate-500 text-white'
 }
 
 export function DatasetCard({
@@ -65,15 +65,15 @@ export function DatasetCard({
           : { duration: 0.4 }
       }
       whileHover={{ y: -4 }}
-      className="group relative overflow-hidden rounded-lg border border-border bg-card p-3 sm:p-6 transition-all hover:border-primary/50 hover:shadow-lg"
+      className="group relative overflow-hidden rounded-lg border border-white/[0.08] bg-white/[0.04] p-3 sm:p-6 transition-all hover:border-blue-500/50 hover:shadow-lg"
     >
       <div className="space-y-3 sm:space-y-4">
         {/* Header with flag and title */}
         <div className="flex items-start gap-2 sm:gap-3">
           <span className="text-2xl sm:text-4xl flex-shrink-0">{flag}</span>
           <div className="flex-1 min-w-0">
-            <h3 className="font-bold text-sm sm:text-base leading-tight line-clamp-2">{name}</h3>
-            <p className="mt-1 text-xs text-muted-foreground line-clamp-2">
+            <h3 className="font-bold text-sm sm:text-base leading-tight line-clamp-2 text-[#f1f5f9]">{name}</h3>
+            <p className="mt-1 text-xs text-[#cbd5e1] line-clamp-2">
               {description}
             </p>
           </div>
@@ -82,7 +82,7 @@ export function DatasetCard({
         {/* Domain badge */}
         <div className="flex items-center gap-2">
           <motion.span
-            className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold ${domainColor}`}
+            className={`inline-flex items-center rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-wider ${domainColor}`}
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.1 }}
@@ -94,12 +94,12 @@ export function DatasetCard({
         {/* Fidelity score progress bar */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-muted-foreground">Fidelity Score</span>
+            <span className="text-xs font-medium text-[#94a3b8]">Fidelity Score</span>
             <span className="text-xs font-bold text-[#60a5fa]">{Math.round(fidelityScore)}%</span>
           </div>
-          <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-800">
+          <div className="h-1.5 w-full overflow-hidden rounded-full bg-[#1e3a5f]">
             <motion.div
-              className="h-full bg-gradient-to-r from-[#3b82f6] to-[#60a5fa]"
+              className="h-full bg-[#3b82f6]"
               initial={{ width: 0 }}
               animate={{ width: `${fidelityScore}%` }}
               transition={{ duration: 0.6, delay: 0.1 }}
@@ -108,14 +108,14 @@ export function DatasetCard({
         </div>
 
         {/* Metadata */}
-        <div className="grid grid-cols-2 gap-2 sm:gap-3 pt-2 border-t border-border">
+        <div className="grid grid-cols-2 gap-2 sm:gap-3 pt-2 border-t border-white/[0.08]">
           <div>
-            <p className="text-xs text-muted-foreground">Rows</p>
-            <p className="font-mono text-xs sm:text-sm font-bold">{rowCount.toLocaleString()}</p>
+            <p className="text-xs text-[#94a3b8]">Rows</p>
+            <p className="font-mono text-xs sm:text-sm font-bold text-white">{rowCount.toLocaleString()}</p>
           </div>
           <div>
-            <p className="text-xs text-muted-foreground">Columns</p>
-            <p className="font-mono text-xs sm:text-sm font-bold">{columnCount}</p>
+            <p className="text-xs text-[#94a3b8]">Columns</p>
+            <p className="font-mono text-xs sm:text-sm font-bold text-white">{columnCount}</p>
           </div>
         </div>
 
@@ -126,7 +126,7 @@ export function DatasetCard({
               <Button
                 variant="outline"
                 size="sm"
-                className="w-full text-xs sm:text-sm"
+                className="w-full text-xs sm:text-sm bg-[#1e293b] text-white border-white/10 hover:bg-[#334155] hover:text-white"
               >
                 <Sparkles className="mr-1 sm:mr-2 h-3 sm:h-4 w-3 sm:w-4 text-amber-500" />
                 <span className="hidden sm:inline">Generate</span>
@@ -138,7 +138,7 @@ export function DatasetCard({
             <Button
               size="sm"
               disabled={isDownloading}
-              className="w-full bg-[#3b82f6] hover:bg-[#2563eb] text-xs sm:text-sm disabled:opacity-75"
+              className="w-full bg-[#3b82f6] hover:bg-[#2563eb] text-white text-xs sm:text-sm disabled:opacity-75"
               onClick={() => onDownload?.(id)}
             >
               {isDownloading ? (
