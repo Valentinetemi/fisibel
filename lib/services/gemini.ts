@@ -388,8 +388,7 @@ export async function streamSyntheticDataGeneration(
     model,
     system: systemPrompt,
     messages: [{ role: 'user', content: messageContent }],
-    temperature: 0.7,
-    maxTokens: 8192
+    temperature: 0.7
   })
 
   return { stream, domain, country, referenceData }
