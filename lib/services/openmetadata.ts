@@ -28,14 +28,14 @@ export async function createAfriGenService() {
       method: 'POST',
       headers,
       body: JSON.stringify({
-        name: 'afrigen-synthetic',
-        displayName: 'AfriGen Synthetic Data',
+        name: 'Fisibel-synthetic',
+        displayName: 'Fisibel Synthetic Data',
         description: 'AI-generated synthetic African datasets grounded in WHO and World Bank statistics.',
         serviceType: 'CustomDatabase',
         connection: {
           config: {
             type: 'CustomDatabase',
-            sourcePythonClass: 'afrigen.synthetic',
+            sourcePythonClass: 'fisibel.synthetic',
           },
         },
       }),

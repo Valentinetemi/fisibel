@@ -249,10 +249,21 @@ function parseCSVLine(line: string): string[] {
   const result: string[] = []
   let current = ''
   let inQuotes = false
-  for (const char of line) {
-    if (char === '"') inQuotes = !inQuotes
-    else if (char === ',' && !inQuotes) { result.push(current.trim()); current = '' }
-    else current += char
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i]
+    if (char === '"') {
+      if (inQuotes && line[i + 1] === '"') {
+        current += '"'
+        i++
+      } else {
+        inQuotes = !inQuotes
+      }
+    } else if (char === ',' && !inQuotes) {
+      result.push(current.trim())
+      current = ''
+    } else {
+      current += char
+    }
   }
   result.push(current.trim())
   return result
@@ -276,7 +287,7 @@ export async function calculateFidelityScore(
     let filled = 0
   
     rows.forEach(r => {
-      r.split(',').forEach(cell => {
+      parseCSVLine(r).forEach(cell => {
         total++
         if (cell.trim() !== '') filled++
       })
@@ -382,13 +393,13 @@ export async function streamSyntheticDataGeneration(
       type: 'text',
       text: `Generate a synthetic CSV dataset for: ${userPrompt}`,
     })
-  }
+  } 
 
   const stream = streamText({
     model,
     system: systemPrompt,
     messages: [{ role: 'user', content: messageContent }],
-    temperature: 0.7
+    temperature: 0.7,
   })
 
   return { stream, domain, country, referenceData }

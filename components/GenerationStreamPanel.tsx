@@ -4,6 +4,14 @@ import { useEffect, useRef, useState, useMemo } from 'react'
 import { motion } from 'framer-motion'
 import type { UploadedVisualContext } from '@/lib/utils/multimodal-context'
 import { csvToJSON } from '@/lib/utils/csv-export'
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
+import { Maximize2 } from 'lucide-react'
 
 interface GenerationStreamPanelProps {
   rawStream: string
@@ -79,6 +87,36 @@ export function GenerationStreamPanel({
               <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white">
                 AI Insight
               </span>
+              {visualContext?.base64Data && visualContext?.mimeType?.startsWith('image/') && (
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <button className="group relative ml-2 flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-md border border-white/10 bg-white/5 transition-all hover:border-blue-500/50 hover:bg-white/10">
+                      <img
+                        src={`data:${visualContext.mimeType};base64,${visualContext.base64Data}`}
+                        alt="Context"
+                        className="h-full w-full object-cover opacity-60 transition-opacity group-hover:opacity-100"
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 transition-opacity group-hover:opacity-100">
+                        <Maximize2 className="h-3 w-3 text-white" />
+                      </div>
+                    </button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-4xl border-white/10 bg-[#060d1f]/95 p-0 backdrop-blur-2xl">
+                    <DialogHeader className="border-b border-white/5 p-4">
+                      <DialogTitle className="text-sm font-medium text-slate-200">
+                        {visualContext.fileName}
+                      </DialogTitle>
+                    </DialogHeader>
+                    <div className="flex items-center justify-center p-4">
+                      <img
+                        src={`data:${visualContext.mimeType};base64,${visualContext.base64Data}`}
+                        alt="Uploaded context"
+                        className="max-h-[80vh] w-auto rounded-lg shadow-2xl"
+                      />
+                    </div>
+                  </DialogContent>
+                </Dialog>
+              )}
             </div>
             <div className="flex flex-col items-start gap-1 sm:items-end">
               <span className="flex items-center gap-1.5 text-[9px] font-medium uppercase tracking-[0.16em] text-slate-400">

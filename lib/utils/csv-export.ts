@@ -2,21 +2,45 @@ export function csvToJSON(csvText: string): any[] {
   const lines = csvText.trim().split('\n')
   if (lines.length < 2) return []
 
-  const headers = lines[0].split(',').map((h) => h.trim())
+  const headers = parseCSVLine(lines[0])
   const data: any[] = []
 
   for (let i = 1; i < lines.length; i++) {
     const obj: any = {}
-    const currentLine = lines[i].split(',')
+    const currentLine = parseCSVLine(lines[i])
 
     for (let j = 0; j < headers.length; j++) {
-      obj[headers[j]] = currentLine[j]?.trim() || ''
+      obj[headers[j]] = currentLine[j] || ''
     }
 
     data.push(obj)
   }
 
   return data
+}
+
+function parseCSVLine(line: string): string[] {
+  const result: string[] = []
+  let current = ''
+  let inQuotes = false
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i]
+    if (char === '"') {
+      if (inQuotes && line[i + 1] === '"') {
+        current += '"'
+        i++
+      } else {
+        inQuotes = !inQuotes
+      }
+    } else if (char === ',' && !inQuotes) {
+      result.push(current.trim())
+      current = ''
+    } else {
+      current += char
+    }
+  }
+  result.push(current.trim())
+  return result
 }
 
 export function arrayToCSV(data: any[], headers?: string[]): string {
