@@ -11,7 +11,7 @@ import {
 const google = createGoogleGenerativeAI({
   apiKey: process.env.GEMMA_API_KEY!,
 })
-const model = google('gemma-4-31b-it')
+const model = google('gemma-4-26b-a4b-it')
 
 export function extractDocumentContext(context: UploadedVisualContext): string {
   return [
@@ -400,6 +400,7 @@ export async function streamSyntheticDataGeneration(
     system: systemPrompt,
     messages: [{ role: 'user', content: messageContent }],
     temperature: 0.7,
+    maxTokens: 16384,
   })
 
   return { stream, domain, country, referenceData }
