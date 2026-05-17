@@ -180,6 +180,15 @@ Distributions in your generated data MUST align with these figures.
 - NO PII: Do not generate real ID numbers, passport numbers, or biometric data.
 - NO patient names — use Patient_ID format (e.g. PT-00142).
 - Categorical consistency: pick 4–8 fixed categories per column and reuse across ALL rows.
+
+## STRICT CATEGORICAL RULES (ZERO TOLERANCE)
+- gender column: ONLY use exactly "Male" or "Female". Never "male", "female", "M", "F", or any variation.
+- diagnosis column: ONLY use exactly these values: "Malaria", "Typhoid Fever", "Hypertension", "Respiratory Infection", "Gastroenteritis". Never abbreviate or vary spelling.
+- lga column: ONLY use exactly these values for Lagos: "Ikeja", "Surulere", "Alimosho", "Eti-Osa", "Kosofe", "Mushin", "Agege". Never use abbreviations or variations.
+- outcome column: ONLY use exactly "Recovered", "Stable", "Improving", "Critical", "Referred". Never vary.
+- treatment column: ONLY use exactly "Artemether-Lumefantrine", "Artesunate Injection", "Ciprofloxacin", "Amoxicillin", "ORS and Zinc". Never abbreviate.
+These rules apply to EVERY row without exception. Categorical inconsistency will cause training failure.
+
 - Realistic distributions: ~60% most common category, ~25% second, rest spread.
 - Numeric ranges must be realistic (adult ages 18–75, not 0–200).
 - Include ~3–5% realistic missing values in non-critical columns only.
@@ -400,7 +409,7 @@ export async function streamSyntheticDataGeneration(
     system: systemPrompt,
     messages: [{ role: 'user', content: messageContent }],
     temperature: 0.7,
-    maxTokens: 16384,
+    maxOutputTokens: 16384,
   })
 
   return { stream, domain, country, referenceData }

@@ -182,7 +182,7 @@ export default function GeneratePage() {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
               csvData: csvClean,
-              name: `Generated: ${domain} - ${country}`,
+              name: `Healthcare Dataset - Nigeria - ${Date.now()}`,
               domain,
               country,
             }),
