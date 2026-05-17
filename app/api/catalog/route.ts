@@ -11,7 +11,7 @@ const headers = {
 export async function GET() {
   try {
     const res = await fetch(
-      `${OM_BASE}/api/v1/tables?databaseSchema=afrigen-synthetic.default.synthetic_datasets&limit=25&include=all&fields=extension,columns,tags`,
+     `${OM_BASE}/api/v1/tables?databaseSchema=Fisibel-synthetic.default.synthetic_datasets&limit=25&include=all&fields=extension,columns,tags`,
       { headers }
     )
     const data = await res.json()
