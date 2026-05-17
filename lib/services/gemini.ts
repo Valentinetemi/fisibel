@@ -11,7 +11,7 @@ import {
 const google = createGoogleGenerativeAI({
   apiKey: process.env.GEMMA_API_KEY!,
 })
-const model = google('gemma-4-26b-a4b-it')
+const model = google('gemma-4-31b-it')
 
 export function extractDocumentContext(context: UploadedVisualContext): string {
   return [
