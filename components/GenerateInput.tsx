@@ -333,9 +333,15 @@ export function GenerateInput({
         <div
           role="button"
           tabIndex={0}
-          onClick={() => fileInputRef.current?.click()}
+          onClick={() => {
+            if (!uploadedFile && !uploadedContext) {
+              fileInputRef.current?.click()
+            }
+          }}
           onKeyDown={(event) => {
-            if (event.key === 'Enter' || event.key === ' ') fileInputRef.current?.click()
+            if ((event.key === 'Enter' || event.key === ' ') && !uploadedFile && !uploadedContext) {
+              fileInputRef.current?.click()
+            }
           }}
           onDragOver={(event) => {
             event.preventDefault()
@@ -372,7 +378,10 @@ export function GenerateInput({
                   {previewUrl ? (
                     <Dialog>
                       <DialogTrigger asChild>
-                        <button className="group relative h-full w-full">
+                        <button 
+                          className="group relative h-full w-full"
+                          onClick={(e) => e.stopPropagation()}
+                        >
                           <img src={previewUrl} alt="" className="h-full w-full object-cover transition-opacity group-hover:opacity-80" />
                           <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 transition-opacity group-hover:opacity-100">
                             <Maximize2 className="h-3 w-3 text-white" />
