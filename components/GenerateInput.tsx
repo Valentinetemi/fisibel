@@ -188,8 +188,7 @@ export function GenerateInput({
     canvas.height = height
     const ctx = canvas.getContext('2d')!
     ctx.drawImage(img, 0, 0, width, height)
-    const compressed = canvas.toDataURL('image/jpeg', 0.7)
-      const base64 = (reader.result as string).split(',')[1]
+    const base64 = canvas.toDataURL(file.type, 0.7).split(',')[1]
       setUploadedContext({
         ...extractDocumentContext(file),
         base64Data: base64,
