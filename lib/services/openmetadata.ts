@@ -13,7 +13,7 @@
       await ensureCustomAttributes()
 
       // First to check if it already exists
-      const check = await fetch(`${OM_BASE}/api/v1/services/databaseServices/name/fisibel-synthetic`, {
+      const check = await fetch(`${OM_BASE}/api/v1/services/databaseServices/name/Fisibel-synthetic`, {
         headers,
       })
 
@@ -59,7 +59,7 @@
       body: JSON.stringify({
         name: 'default',
         displayName: 'Fisibel Default Database',
-        service: 'fisibel-synthetic',
+        service: 'Fisibel-synthetic',
       }),
     })
     const db = await dbRes.json()
@@ -72,7 +72,7 @@
       body: JSON.stringify({
         name: 'synthetic_datasets',
         displayName: 'Synthetic Datasets',
-        database: 'fisibel-synthetic.default',
+        database: 'Fisibel-synthetic.default',
       }),
     })
     const schema = await schemaRes.json()
@@ -112,7 +112,7 @@
           name: tableName,
           displayName: name,
           description: `Synthetic ${domain} dataset for ${country}. Generated from prompt: "${prompt}". Fidelity Score: ${fidelityScore}%. Grounded in WHO Global Health Observatory and World Bank statistics.`,
-          databaseSchema: 'fisibel-synthetic.default.synthetic_datasets',
+          databaseSchema: 'Fisibel-synthetic.default.synthetic_datasets',
           columns: columns.map((col) => ({
             name: col.toLowerCase().replace(/[^a-z0-9]/g, '_'),
             dataType: 'VARCHAR',
@@ -175,7 +175,7 @@
   export async function getRegisteredDatasets() {
     try {
       const res = await fetch(
-        `${OM_BASE}/api/v1/tables?databaseSchema=fisibel-synthetic.default.synthetic_datasets&limit=25&fields=extension`,
+        `${OM_BASE}/api/v1/tables?databaseSchema=Fisibel-synthetic.default.synthetic_datasets&limit=25&fields=extension`,
         { headers }
       )
       const data = await res.json()
@@ -189,7 +189,7 @@
   // Get a single dataset by FQN (for detail view)
   export async function getDatasetByName(tableName: string) {
     try {
-      const fqn = `fisibel-synthetic.default.synthetic_datasets.${tableName}`
+      const fqn = `Fisibel-synthetic.default.synthetic_datasets.${tableName}`
       const res = await fetch(
         `${OM_BASE}/api/v1/tables/name/${encodeURIComponent(fqn)}`,
         { headers }

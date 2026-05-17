@@ -2,7 +2,14 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FileImage, FileText, UploadCloud, X } from 'lucide-react'
+import { FileImage, FileText, UploadCloud, X, Maximize2 } from 'lucide-react'
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 import {
   buildMultimodalPrompt,
   extractDocumentContext,
@@ -15,6 +22,7 @@ interface GenerateInputProps {
   isLoading?: boolean
   initialPrompt?: string
   onPromptChange?: (prompt: string) => void
+  initialVisualContext?: UploadedVisualContext | null
 }
 
 const DOMAINS = [
@@ -98,6 +106,7 @@ export function GenerateInput({
   isLoading = false,
   initialPrompt = '',
   onPromptChange,
+  initialVisualContext = null,
 }: GenerateInputProps) {
   const [prompt, setPrompt] = useState(initialPrompt)
 
@@ -112,8 +121,21 @@ export function GenerateInput({
   const [isDragging, setIsDragging] = useState(false)
   const [isProcessingUpload, setIsProcessingUpload] = useState(false)
   const [uploadedFile, setUploadedFile] = useState<File | null>(null)
-  const [uploadedContext, setUploadedContext] = useState<UploadedVisualContext | null>(null)
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null)
+  const [uploadedContext, setUploadedContext] = useState<UploadedVisualContext | null>(initialVisualContext)
+  const [previewUrl, setPreviewUrl] = useState<string | null>(
+    initialVisualContext?.base64Data 
+      ? `data:${initialVisualContext.mimeType};base64,${initialVisualContext.base64Data}` 
+      : null
+  )
+
+  useEffect(() => {
+    if (initialVisualContext) {
+      setUploadedContext(initialVisualContext)
+      if (initialVisualContext.base64Data) {
+        setPreviewUrl(`data:${initialVisualContext.mimeType};base64,${initialVisualContext.base64Data}`)
+      }
+    }
+  }, [initialVisualContext])
   const ref = useRef<HTMLTextAreaElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const placeholder = useTypewriter(PLACEHOLDERS)
@@ -337,7 +359,7 @@ export function GenerateInput({
           />
 
           <AnimatePresence mode="wait">
-            {uploadedFile ? (
+            {(uploadedFile || uploadedContext) ? (
               <motion.div
                 key="preview"
                 initial={{ opacity: 0, y: 6, scale: 0.98 }}
@@ -348,7 +370,30 @@ export function GenerateInput({
               >
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/20 bg-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.25)]">
                   {previewUrl ? (
-                    <img src={previewUrl} alt="" className="h-full w-full object-cover" />
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <button className="group relative h-full w-full">
+                          <img src={previewUrl} alt="" className="h-full w-full object-cover transition-opacity group-hover:opacity-80" />
+                          <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 transition-opacity group-hover:opacity-100">
+                            <Maximize2 className="h-3 w-3 text-white" />
+                          </div>
+                        </button>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-4xl border-white/10 bg-[#060d1f]/95 p-0 backdrop-blur-2xl">
+                        <DialogHeader className="border-b border-white/5 p-4">
+                          <DialogTitle className="text-sm font-medium text-slate-200">
+                            {uploadedFile?.name || uploadedContext?.fileName}
+                          </DialogTitle>
+                        </DialogHeader>
+                        <div className="flex items-center justify-center p-4">
+                          <img
+                            src={previewUrl}
+                            alt="Uploaded context"
+                            className="max-h-[80vh] w-auto rounded-lg shadow-2xl"
+                          />
+                        </div>
+                      </DialogContent>
+                    </Dialog>
                   ) : (
                     <FileText className="h-5 w-5 text-slate-400" />
                   )}
@@ -357,11 +402,11 @@ export function GenerateInput({
                   <div className="flex items-center gap-1.5">
                     <span className="h-1.5 w-1.5 rounded-full bg-[#60a5fa] shadow-[0_0_10px_rgba(96,165,250,0.7)]" />
                     <p className="truncate text-[11px] font-semibold text-slate-100">
-                      {uploadedFile.name}
+                      {uploadedFile?.name || uploadedContext?.fileName}
                     </p>
                   </div>
                   <p className="mt-0.5 text-[9px] font-medium uppercase tracking-[0.14em] text-slate-400">
-                    {formatFileSize(uploadedFile.size)} · {isProcessingUpload ? 'Processing visual context' : 'Upload indexed'}
+                    {formatFileSize(uploadedFile?.size || uploadedContext?.fileSize || 0)} · {isProcessingUpload ? 'Processing visual context' : 'Upload indexed'}
                   </p>
                   {uploadedContext && (
                     <motion.span
@@ -380,7 +425,8 @@ export function GenerateInput({
                     event.stopPropagation()
                     removeUpload()
                   }}
-                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-slate-400 transition-colors hover:border-red-200/60 hover:text-red-500"
+                  disabled={isLoading}
+                  className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-slate-400 transition-colors hover:border-red-200/60 hover:text-red-500 disabled:cursor-not-allowed disabled:opacity-30"
                   aria-label="Remove uploaded visual context"
                 >
                   <X className="h-3.5 w-3.5" />

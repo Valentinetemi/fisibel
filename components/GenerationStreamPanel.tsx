@@ -90,14 +90,14 @@ export function GenerationStreamPanel({
               {visualContext?.base64Data && visualContext?.mimeType?.startsWith('image/') && (
                 <Dialog>
                   <DialogTrigger asChild>
-                    <button className="group relative ml-2 flex h-8 w-8 shrink-0 items-center justify-center overflow-hidden rounded-md border border-white/10 bg-white/5 transition-all hover:border-blue-500/50 hover:bg-white/10">
+                    <button className="group relative ml-3 flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-white/10 bg-white/5 transition-all hover:border-blue-500/50 hover:bg-white/10 shadow-[0_0_15px_rgba(0,0,0,0.3)]">
                       <img
                         src={`data:${visualContext.mimeType};base64,${visualContext.base64Data}`}
                         alt="Context"
-                        className="h-full w-full object-cover opacity-60 transition-opacity group-hover:opacity-100"
+                        className="h-full w-full object-cover opacity-80 transition-opacity group-hover:opacity-100"
                       />
-                      <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 transition-opacity group-hover:opacity-100">
-                        <Maximize2 className="h-3 w-3 text-white" />
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition-opacity group-hover:opacity-100">
+                        <Maximize2 className="h-4 w-4 text-white" />
                       </div>
                     </button>
                   </DialogTrigger>

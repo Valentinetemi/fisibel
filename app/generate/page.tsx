@@ -292,6 +292,7 @@ export default function GeneratePage() {
                       isLoading={isStreaming}
                       initialPrompt={userPrompt}
                       onPromptChange={handlePromptChange}
+                      initialVisualContext={visualContext}
                     />
 
                     <div className="mt-8 flex items-start gap-2.5 border-t border-white/[0.08] pt-6">
@@ -356,6 +357,7 @@ export default function GeneratePage() {
                       isLoading={isStreaming}
                       initialPrompt={userPrompt}
                       onPromptChange={handlePromptChange}
+                      initialVisualContext={visualContext}
                     />
                     <div className="mt-8 flex items-start gap-2.5 border-t border-white/[0.08] pt-6">
                       <Sparkles className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#60a5fa]" />
