@@ -174,6 +174,21 @@ export function GenerateInput({
     // Convert to base64
     const reader = new FileReader()
     reader.onload = () => {
+      const img = new Image()
+      img.onload = () => {
+    const canvas = document.createElement('canvas')
+    const maxSize = 800
+    let {width} = img
+    let {height} = img
+    if (width > maxSize) {
+      height = (height * maxSize) / width
+      width = maxSize
+    }
+    canvas.width = width
+    canvas.height = height
+    const ctx = canvas.getContext('2d')!
+    ctx.drawImage(img, 0, 0, width, height)
+    const compressed = canvas.toDataURL('image/jpeg', 0.7)
       const base64 = (reader.result as string).split(',')[1]
       setUploadedContext({
         ...extractDocumentContext(file),
@@ -182,6 +197,8 @@ export function GenerateInput({
       })
       setIsProcessingUpload(false)
     }
+    img.src = reader.result as string
+  }
     reader.readAsDataURL(file)
   }
 
