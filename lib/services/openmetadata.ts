@@ -100,7 +100,7 @@
     try {
       await ensureDatabaseExists()
 
-      const tableName = name
+      const tableName = `${name}_${Date.now()}`
         .toLowerCase()
         .replace(/[^a-z0-9]/g, '_')
         .slice(0, 64)

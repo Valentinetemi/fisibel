@@ -187,7 +187,7 @@ export default function GeneratePage() {
               country,
             }),
           });
-
+          
           await fetch("/api/metadata", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
