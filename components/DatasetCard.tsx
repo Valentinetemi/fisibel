@@ -145,7 +145,7 @@ export function DatasetCard({
                 <>
                   <Spinner className="mr-1 sm:mr-2 h-3 sm:h-4 w-3 sm:w-4" />
                   <span className="hidden sm:inline">Generating...</span>
-                  <span className="sm:hidden">Loading...</span>
+                  <span className="sm:hidden">Loading....</span>
                 </>
               ) : (
                 <>
