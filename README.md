@@ -239,13 +239,11 @@ Database Service: fisibel-synthetic (CustomDatabase)
   └── Database: default
         └── Schema: synthetic_datasets
               ├── healthcare_dataset__nigeria
-              ├── malaria_dataset__kano
               └── ...
 
 Pipeline Service: fisibel-pipelines (CustomPipeline)
   └── Pipeline: gemma-generator
         ├── → healthcare_dataset__nigeria  (Lineage Edge)
-        └── → malaria_dataset__kano        (Lineage Edge)
 ```
 
 ---
