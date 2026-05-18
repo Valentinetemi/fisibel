@@ -36,7 +36,7 @@ console.log('[Catalog] First table raw:', JSON.stringify(tables[0], null, 2))
       return {
         id: table.id,
         name: table.displayName || table.name,
-        description: table.description || '',
+        description: (table.description || '').replace(/<[^>]*>/g, ''),
         domain,
         country,
         rowCount,

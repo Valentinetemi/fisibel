@@ -178,6 +178,7 @@ function analyzeColumns(rows: any[], headers: string[]): ColumnAnalysis[] {
       duplicateCount,
       sampleValues,
       isPII: isPIIColumn(header),
+      
       ...numericAnalysis,
     }
   })
@@ -258,7 +259,7 @@ function calculateConsistencyPenalty(columns: ColumnAnalysis[]): number {
     if (column.missingPercentage > 50) {
       penalty += 5 // High missing values in specific column
     }
-    if (column.duplicateCount > column.uniqueCount * 0.1) {
+    if (column.uniqueCount > 20 && column.duplicateCount > column.uniqueCount * 0.1) {
       penalty += 2 // High duplicates in column
     }
   }
