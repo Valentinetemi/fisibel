@@ -7,10 +7,7 @@ Fisibel is a multimodal synthetic health data platform powered by Google Gemma 4
 Built for the [Gemma 4 Good Hackathon](https://www.kaggle.com/competitions/gemma-4-good-hackathon).
 
 ## 🎬 Demo
-**[Live Demo](your_demo_url)** | **[Video Walkthrough](your_youtube_url)** | **[Kaggle Writeup](your_kaggle_url)**
-
-> Note: First load may take 30–60 seconds (server spins down when inactive).
-> For full OpenMetadata catalog integration, run locally with your own instance.
+**[Live Demo](https://fisibel.vercel.app/generate)** | **[Video Walkthrough](your_youtube_url)** | **[Kaggle Writeup](your_kaggle_url)**
 
 ---
 
