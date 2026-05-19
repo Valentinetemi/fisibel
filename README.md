@@ -136,7 +136,7 @@ function getCompleteness(csv: string) {
 **Final Score Formula:**
 
 ```
-finalScore = (0.8 × GeminiScore) + (0.2 × completenessScore)
+finalScore = (0.8 × GemmaScore) + (0.2 × completenessScore)
 ```
 
 This penalizes missing values even when AI-evaluated rows look good. A dataset with beautiful clinical patterns but 30% empty cells will not score above 86.
