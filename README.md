@@ -187,7 +187,7 @@ function detectDataType(values: any[]): string {
 For numeric columns, Fisibel computes:
 - **Mean, median, standard deviation**
 - **Min / max range**
-- **Outlier count** using the IQR method (values below Q1 − 1.5×IQR or above Q3 + 1.5×IQR)
+- **Outlier count** using the IQR method (values below Q1 − 1.5×IQR or above Q3 + 1.5×IQR).
 
 ### PII Detection
 
