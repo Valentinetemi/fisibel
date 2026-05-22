@@ -4,8 +4,6 @@
 
 Fisibel is a multimodal synthetic health data platform powered by Google Gemma 4. Upload a real African health record. Gemma 4 reads it, extracts clinical patterns, and generates privacy-safe synthetic datasets grounded in WHO and World Bank statistics — with full OpenMetadata governance, fidelity scoring, and data quality analysis.
 
-Built for the [Gemma 4 Good Hackathon](https://www.kaggle.com/competitions/ge
-
 ## 🎬 Demo
 **[Live Demo](https://fisibel.vercel.app/generate)** | **[Video Walkthrough](https://youtu.be/KqJ1BZgXZEY)**
 ---
