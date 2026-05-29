@@ -22,7 +22,7 @@ Fisibel fixes this.
 
 Upload any African health record → Gemma 4 reads it multimodally → generates a synthetic dataset grounded in real WHO and World Bank statistics → registers it in OpenMetadata with lineage, fidelity score, and full data quality analysis.
 
-No real patient data ever leaves the platform.
+No real patient data ever leaves the platform
 
 ---
 
