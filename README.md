@@ -12,7 +12,7 @@ Fisibel is a multimodal synthetic health data platform powered by Google Gemma 4
 
 Most healthcare AI systems were trained on datasets that barely represent African patients. Hospitals across Africa generate millions of health records yearly — yet most never reach AI training pipelines. Privacy restrictions, fragmented infrastructure, and limited data governance have left African patients largely invisible.
 
-**The result:** systems built to detect disease often perform worst on the populations that need them most.
+**The result:** systems built to detect disease often perform worst on the populations that need them most
 
 Fisibel fixes this.
 
